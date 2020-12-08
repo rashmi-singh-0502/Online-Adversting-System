@@ -3,7 +3,7 @@
     <Properties>
         <Property name="basePath">../OnlineAdvertisingSystem/logs</Property>
     </Properties>
-    
+   
     <Appenders>
         <!-- Console Appender -->
         <Console name="STDOUT" target="SYSTEM_OUT">
@@ -11,10 +11,10 @@
         </Console>
         <!-- File Appender -->
         <File name="FILE" fileName="${basePath}/online_advertise.log" append="true">
-        	<PatternLayout pattern="%-5p | %d{yyyy-MM-dd HH:mm:ss} | [%t] %C{2} (%F:%L) - %m%n" />
-		</File>    
+        <PatternLayout pattern="%-5p | %d{yyyy-MM-dd HH:mm:ss} | [%t] %C{2} (%F:%L) - %m%n" />
+</File>    
     </Appenders>
-    
+   
     <Loggers>
         <Logger name="com.cg.oas" level="trace" />
         <Root level="error">
