@@ -2,9 +2,13 @@ package com.cg.oas.presentation;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import com.cg.oas.exceptions.NameIsBlankException;
+import com.cg.oas.exceptions.AdvertiseNotFoundException;
 import com.cg.oas.exceptions.DescriptionIsBlankException;
 import com.cg.oas.exceptions.IdNotFoundException;
 import org.apache.logging.log4j.Logger;
+
+import static org.junit.Assert.assertNotNull;
+
 import org.apache.logging.log4j.LogManager;
 
 
@@ -38,6 +42,17 @@ public class OasControllerTest
 		oasController.DeleteById(123);
 		logger.info("[END]  testDeleteByIdFailed()");
 	}*/
+	@Test
+	public void testAdvertiseSearchSuccess() throws AdvertiseNotFoundException {
+		logger.info("[START] testAdvertiseSearchSuccess()");
+		assertNotNull("Advertise Found", oasController.findAdvertiseById(1));
+		logger.info("[END] testAdvertiseSearchSuccess()");
+	}
 	
-	
+	@Test(expected = AdvertiseNotFoundException.class)
+	public void testAdvertiseSearchFailed() throws AdvertiseNotFoundException {
+		logger.info("[START] testAdvertiseSearchFailed()");
+		oasController.findAdvertiseById(-2);
+		logger.info("[END] testAdvertiseSearchFailed()");
+	}
 }

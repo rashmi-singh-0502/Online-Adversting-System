@@ -1,5 +1,7 @@
 package com.cg.oas.service;
 
+import java.util.List;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -20,6 +22,11 @@ public class UserServiceImpl implements UserService
 		UserEntity userEntity=userDao.DeleteById(userId);
 		logger.info("CategoryEntity: " + userEntity);
 		return OasUtils.convertUserEntityIntoUser(userEntity);
+	}
+
+	public List<UserEntity> viewUser() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 	
