@@ -3,8 +3,10 @@ package com.cg.oas.presentation;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import com.cg.oas.dto.Category;
+import com.cg.oas.dto.User;
 import com.cg.oas.exceptions.NameIsBlankException;
 import com.cg.oas.exceptions.DescriptionIsBlankException;
+import com.cg.oas.exceptions.ListNotDisplayedException;
 import com.cg.oas.service.CategoryService;
 import com.cg.oas.service.CategoryServiceImpl;
 
@@ -14,19 +16,13 @@ public class OasController
 	private static Logger logger = LogManager.getLogger(OasController.class.getName());
 	CategoryService categoryService = new CategoryServiceImpl();
 
-	public User viewUser() throws ListNotDisplayedException 
-	{
-		logger.info("Adding Description for Category: ");
-	     User user = null;
-		try {
-			user= userService.viewUser();
-		}
-		catch(Exception e) 
-		{
-			logger.error("DescriptionIsBlankException: " + e);
-			throw new ListNotDisplayedException(e.getMessage());
-		}
-	}
+	/*
+	 * public User viewUser() throws ListNotDisplayedException {
+	 * logger.info("Adding Description for Category: "); User user = null; try {
+	 * user= userService.viewUser(); } catch(Exception e) {
+	 * logger.error("DescriptionIsBlankException: " + e); throw new
+	 * ListNotDisplayedException(e.getMessage()); } }
+	 */
 	
 	
 	
