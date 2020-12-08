@@ -10,7 +10,7 @@ import com.jpa.advertiseapp.service.UserServiceImpl;
 public class UserController 
 {
 	
-	private static Logger logger = LogManager.getLogger(AdvertiseAppController.class.getName());
+	private static Logger logger = LogManager.getLogger(UserController.class.getName());
 	UserService userService = new UserServiceImpl();
 	
 	public User findByName(String name) throws UserNotFoundException {
