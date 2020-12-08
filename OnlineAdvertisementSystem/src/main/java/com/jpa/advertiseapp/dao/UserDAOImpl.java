@@ -12,7 +12,7 @@ import com.jpa.advertiseapp.exceptions.UserNotFoundException;
 import com.jpa.advertiseapp.service.UserServiceImpl;
 public class UserDAOImpl implements UserDAO
 {
-	private static Logger logger = LogManager.getLogger(RegisterUserDAOImpl.class.getName());	
+	private static Logger logger = LogManager.getLogger(UserDAOImpl.class.getName());	
 	private static EntityManager entityManager;
 	
 	static {
