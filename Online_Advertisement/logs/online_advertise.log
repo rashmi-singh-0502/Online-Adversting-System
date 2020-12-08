@@ -1,0 +1,9 @@
+INFO  | 2020-12-08 08:44:04 | [main] presentation.OnlineAdvertisementControllerTest (OnlineAdvertisementControllerTest.java:34) - [START] testAdvertiseSearchFailed()
+INFO  | 2020-12-08 08:44:04 | [main] presentation.OnlineAdvertisementController (OnlineAdvertisementController.java:21) - Finding advertise for id: -2
+INFO  | 2020-12-08 08:44:04 | [main] dao.AdvertiseDAOImpl (AdvertiseDAOImpl.java:25) - Database returned AdvertiseEntity: null
+ERROR | 2020-12-08 08:44:04 | [main] presentation.OnlineAdvertisementController (OnlineAdvertisementController.java:27) - AdvertiseNotFoundException: Advertise not found AdvertiseId: -2
+INFO  | 2020-12-08 08:44:04 | [main] presentation.OnlineAdvertisementControllerTest (OnlineAdvertisementControllerTest.java:27) - [START] testAdvertiseSearchSuccess()
+INFO  | 2020-12-08 08:44:04 | [main] presentation.OnlineAdvertisementController (OnlineAdvertisementController.java:21) - Finding advertise for id: 1
+INFO  | 2020-12-08 08:44:04 | [main] dao.AdvertiseDAOImpl (AdvertiseDAOImpl.java:25) - Database returned AdvertiseEntity: AdvertiseEntity [ad_id=1, title=Table, category=Furniture, description=Table of perfect height,brown colour, price=499.0, status=New]
+INFO  | 2020-12-08 08:44:04 | [main] service.AdvertiseServiceImpl (AdvertiseServiceImpl.java:21) - AdvertiseEntity: AdvertiseEntity [ad_id=1, title=Table, category=Furniture, description=Table of perfect height,brown colour, price=499.0, status=New]
+INFO  | 2020-12-08 08:44:04 | [main] presentation.OnlineAdvertisementControllerTest (OnlineAdvertisementControllerTest.java:29) - [END] testAdvertiseSearchSuccess()
