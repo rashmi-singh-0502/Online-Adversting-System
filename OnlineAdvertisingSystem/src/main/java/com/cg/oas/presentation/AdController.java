@@ -3,8 +3,8 @@ package com.cg.oas.presentation;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.cg.oas.dto.Ad;
-import com.cg.oas.entity.AdEntity;
+import com.cg.oas.dto.Advertise;
+import com.cg.oas.entity.AdvertiseEntity;
 import com.cg.oas.exceptions.InvalidDataFormatException;
 import com.cg.oas.presentation.AdController;
 import com.cg.oas.service.AdService;
@@ -15,9 +15,9 @@ public class AdController {
 
 	private static Logger logger=LogManager.getLogger(AdController.class.getName());
 	AdService adService=new AdServiceImpl();
-	public Ad addData(AdEntity adEntity) throws InvalidDataFormatException  {
+	public Advertise addData(AdvertiseEntity adEntity) throws InvalidDataFormatException  {
 		logger.info("Posting new advertisement");
-		Ad ad =null;
+		Advertise ad;
 		try {
 			ad = adService.addData(adEntity);
 		}
