@@ -6,7 +6,7 @@ import org.apache.logging.log4j.Logger;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import com.cg.oas.entity.AdEntity;
+import com.cg.oas.entity.AdvertiseEntity;
 import com.cg.oas.exceptions.InvalidDataFormatException;
 
 public class AdAppControllerTest {
@@ -22,10 +22,10 @@ public class AdAppControllerTest {
 		
 	}
 
-	@Test
+	@Test(expected = InvalidDataFormatException.class)
 	public void testValidPostAdvertiseSuccess() throws InvalidDataFormatException {
 		logger.info("[START] testValidPostAdvertiseSuccess()");
-		assertNotNull("New Advertise Posted Successfully", adController.addData(new AdEntity(1,"abc","vehicle",120,"desc")));
+		assertNotNull("New Advertise Posted Successfully", adController.addData(new AdvertiseEntity(3,"abc","vehicle","desc",120,"open")));
 		logger.info("[END] testValidPostAdvertiseSuccess()");
 	}
 	
