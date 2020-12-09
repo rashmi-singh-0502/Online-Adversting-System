@@ -19,7 +19,7 @@ public class AdDAOImpl implements AdDAO{
 	
 
 	public AdEntity postNewAdvertise(AdEntity adEntity) throws InvalidDataFormatException {
-		EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("ShopCartAppPU");
+		EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("OnlineAdvertisePU");
 		entityManager = entityManagerFactory.createEntityManager();
 		
 		if(AdDAOImpl.validateLetters(adEntity.getAdvertiseTitle())) 
