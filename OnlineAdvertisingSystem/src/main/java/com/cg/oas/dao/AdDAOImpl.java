@@ -9,7 +9,7 @@ import javax.persistence.Persistence;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.cg.oas.entity.AdEntity;
+import com.cg.oas.entity.AdvertiseEntity;
 import com.cg.oas.exceptions.InvalidDataFormatException;
 
 public class AdDAOImpl implements AdDAO{
@@ -18,13 +18,13 @@ public class AdDAOImpl implements AdDAO{
 	private static EntityManager entityManager;
 	
 
-	public AdEntity postNewAdvertise(AdEntity adEntity) throws InvalidDataFormatException {
+	public AdvertiseEntity postNewAdvertise(AdvertiseEntity adEntity) throws InvalidDataFormatException {
 		EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("OnlineAdvertisePU");
 		entityManager = entityManagerFactory.createEntityManager();
 		
-		if(AdDAOImpl.validateLetters(adEntity.getAdvertiseTitle())) 
+		if(AdDAOImpl.validateLetters(adEntity.getTitle())) 
 		{
-			if (AdDAOImpl.validateLetters(adEntity.getAdvertiseCategory())) 
+			if (AdDAOImpl.validateLetters(adEntity.getCategory())) 
 			{
 			
 				if(AdDAOImpl.validateLetters(adEntity.getDescription()))
@@ -58,3 +58,4 @@ public class AdDAOImpl implements AdDAO{
 
 	}
 }
+
