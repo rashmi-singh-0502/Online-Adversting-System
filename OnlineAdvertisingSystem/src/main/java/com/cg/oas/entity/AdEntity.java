@@ -7,92 +7,89 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "advertise")
-public class AdEntity 
-{
+@Table(name="advertise")
+public class AdEntity{
+	
 	@Id
 	@GeneratedValue
-	@Column(name="id")
-	private int id;
-	
-	@Column(name="title")
-	private String advertiseTitle;
+	@Column(name="ad_id")
+	private int ad_id;
 
-	@Column(name="category")
-	private String advertiseCategory;
+	@Column(name="title")
+	private String title;
 	
-	@Column(name="price")
-	private int price;
+	@Column(name="category")
+	private String category;
 	
 	@Column(name="description")
 	private String description;
-
-	public AdEntity(int id,String advertiseTitle, String advertiseCategory, int price,String description) {
+	
+	@Column(name="price")
+	private double price;
+	
+	@Column(name="status")
+	private String status;
+	
+	public AdEntity(int ad_id,String title, String category, String description, double price, String status) {
 		super();
-		this.id=id;
-		this.advertiseTitle = advertiseTitle;
-		this.advertiseCategory = advertiseCategory;
-		this.price = price;
+		this.ad_id = ad_id;
+		this.title = title;
+		this.category = category;
 		this.description = description;
+		this.price = price;
+		this.status = status;
+	}
+	public AdEntity(String title, String category, String description, double price, String status) {
+		super();
+		this.title = title;
+		this.category = category;
+		this.description = description;
+		this.price = price;
+		this.status = status;
+	}
+	public AdEntity() {
 	}
 	
-
-	public AdEntity(String advertiseTitle, String advertiseCategory, int price, String description) {
-		super();
-		this.advertiseTitle = advertiseTitle;
-		this.advertiseCategory = advertiseCategory;
-		this.price = price;
-		this.description = description;
+	public int getAd_id() {
+		return ad_id;
 	}
-
-	public int getId() {
-		return id;
+	public void setAd_id(int ad_id) {
+		this.ad_id = ad_id;
 	}
-
-	public void setId(int id) {
-		this.id = id;
+	public String getTitle() {
+		return title;
 	}
-	public String getAdvertiseTitle() {
-		return advertiseTitle;
+	public void setTitle(String title) {
+		this.title = title;
 	}
-
-	public void setAdvertiseTitle(String advertiseTitle) {
-		this.advertiseTitle = advertiseTitle;
+	public String getCategory() {
+		return category;
 	}
-
-	public String getAdvertiseCategory() {
-		return advertiseCategory;
+	public void setCategory(String category) {
+		this.category = category;
 	}
-
-	public void setAdvertiseCategory(String advertiseCategory) {
-		this.advertiseCategory = advertiseCategory;
-	}
-
-	public int getPrice() {
-		return price;
-	}
-
-	public void setPrice(int price) {
-		this.price = price;
-	}
-
 	public String getDescription() {
 		return description;
 	}
-
 	public void setDescription(String description) {
 		this.description = description;
+	}
+	public double getPrice() {
+		return price;
+	}
+	public void setPrice(double price) {
+		this.price = price;
+	}
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
 	@Override
 	public String toString() {
-		return "AdEntity [advertiseTitle=" + advertiseTitle + ", advertiseCategory=" + advertiseCategory + ", price="
-				+ price + ", description=" + description + "]";
-	}
-
-	
-	
+		return "AdvertiseEntity [ad_id=" + ad_id + ", title=" + title + ", category=" + category + ", description="
+				+ description + ", price=" + price + ", status=" + status + "]";
+	}	
 }
-
-
-
