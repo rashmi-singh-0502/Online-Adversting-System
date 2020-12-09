@@ -3,24 +3,22 @@ package com.cg.oas.presentation;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.cg.oas.dto.Advertise;
-import com.cg.oas.dto.Category;
-import com.cg.oas.dto.User;
-import com.cg.oas.exceptions.NameIsBlankException;
-import com.cg.oas.exceptions.AdvertiseNotFoundException;
-import com.cg.oas.exceptions.DescriptionIsBlankException;
-import com.cg.oas.exceptions.ListNotDisplayedException;
-import com.cg.oas.service.AdvertiseService;
-import com.cg.oas.service.AdvertiseServiceImpl;
-import com.cg.oas.service.CategoryService;
-import com.cg.oas.service.CategoryServiceImpl;
+import com.cg.oas.dto.Ad;
+
+
+
+import com.cg.oas.exceptions.AdNotFoundException;
+
+
+import com.cg.oas.service.AdService;
+import com.cg.oas.service.AdServiceImpl;
 
 
 public class OasController
 {
 	private static Logger logger = LogManager.getLogger(OasController.class.getName());
-	CategoryService categoryService = new CategoryServiceImpl();
-	AdvertiseService advertiseService = new AdvertiseServiceImpl();
+	
+	AdService advertiseService = new AdServiceImpl();
 
 	/*
 	 * public User viewUser() throws ListNotDisplayedException {
@@ -30,47 +28,16 @@ public class OasController
 	 * ListNotDisplayedException(e.getMessage()); } }
 	 */
 	
-	Category AddName(String categoryName) throws NameIsBlankException 
-	{
-		logger.info("Adding Name for category: " + categoryName);
-	     Category category = null;
-		try 
-		{
-			category= categoryService.AddName(categoryName);
-		}
-		catch(Exception e) 
-		{
-			logger.error("NameIsBlankException: " + e);
-			throw new NameIsBlankException(e.getMessage());
-		}
-		return category;
-	}
-	public Category AddDescription(String categoryDesc) throws DescriptionIsBlankException 
-	{
-		logger.info("Adding Description for Category: " + categoryDesc);
-	     Category category = null;
-		try 
-		{
-			
-			category= categoryService.AddDescription(categoryDesc);
-		}
-		catch(Exception e) 
-		{
-			logger.error("DescriptionIsBlankException: " + e);
-			throw new DescriptionIsBlankException(e.getMessage());
-		}
-		return category;
-	}
-	
-	public Advertise findAdvertiseById(int advertiseId) throws AdvertiseNotFoundException {
+
+	public Ad findAdvertiseById(int advertiseId) throws AdNotFoundException {
 		logger.info("Finding advertise for id: " + advertiseId);
-		Advertise ad = null;
+		Ad ad = null;
 		try {
 			ad = advertiseService.findAdvertiseById(advertiseId);
 		}
 		catch(Exception e) {
 			logger.error("AdvertiseNotFoundException: " + e);
-			throw new AdvertiseNotFoundException(e.getMessage());
+			throw new AdNotFoundException(e.getMessage());
 		}
 		return ad;
 	}
