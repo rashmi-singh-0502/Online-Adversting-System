@@ -1,11 +1,11 @@
 package com.cg.oas.service;
-import com.cg.oas.dto.Ad;
-import com.cg.oas.entity.AdEntity;
+import com.cg.oas.dto.Advertise;
+import com.cg.oas.entity.AdvertiseEntity;
 import com.cg.oas.exceptions.InvalidDataFormatException;
 
 public interface AdService  {
 
-	Ad addData(AdEntity adEntity) throws InvalidDataFormatException;
+	Advertise addData(AdvertiseEntity adEntity) throws InvalidDataFormatException;
 
 }
 
