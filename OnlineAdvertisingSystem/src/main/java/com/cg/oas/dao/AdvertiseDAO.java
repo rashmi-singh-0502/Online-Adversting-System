@@ -1,8 +1,11 @@
 package com.cg.oas.dao;
 
 import com.cg.oas.entity.AdvertiseEntity;
-import com.cg.oas.exceptions.AdvertiseNotFoundException;
+import com.cg.oas.exceptions.AdvertiseNotFound;
+
 
 public interface AdvertiseDAO {
-	AdvertiseEntity findAdvertiseById(int advertiseId) throws AdvertiseNotFoundException;
+	AdvertiseEntity findAdvertiseTitle(String title) throws AdvertiseNotFound;
+
+	
 }

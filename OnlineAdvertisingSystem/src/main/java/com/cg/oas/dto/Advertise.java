@@ -1,6 +1,6 @@
 package com.cg.oas.dto;
 
-public class Advertise 
+public class Advertise
 {
 	private int ad_id;
 	private String title;
