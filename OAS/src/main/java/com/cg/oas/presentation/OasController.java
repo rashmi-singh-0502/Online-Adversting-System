@@ -8,11 +8,14 @@ import org.apache.logging.log4j.Logger;
 import com.cg.oas.dto.Advertise;
 import com.cg.oas.dto.Category;
 import com.cg.oas.dto.User;
+
 import com.cg.oas.exceptions.AdvertiseNotFound;
 import com.cg.oas.exceptions.AdvertiseNotFoundException;
 import com.cg.oas.exceptions.IdNotFoundException;
 import com.cg.oas.exceptions.ListNotDisplayedException;
 import com.cg.oas.exceptions.NameIsBlankException;
+import com.cg.oas.exceptions.UserAddNotFoundException;
+import com.cg.oas.exceptions.UserIdNotFoundException;
 import com.cg.oas.service.AdvertiseService;
 import com.cg.oas.service.AdvertiseServiceImpl;
 import com.cg.oas.service.CategoryService;
@@ -28,6 +31,7 @@ public class OasController
 	CategoryService categoryService = new CategoryServiceImpl();
 	UserService userService=new UserServiceImpl();
 	List<User> list1;
+	List<Advertise> list2;
 
 	public Advertise findAdvertiseTitle(String  title) throws AdvertiseNotFound {
 		logger.info("Finding advertise for : " + title);
@@ -159,7 +163,57 @@ public class OasController
 			return user;
 		
 	}
+
+
+
+
+
+
+
+
+public User findById(int userid) throws UserIdNotFoundException {
+	logger.info("Finding user with  id: " + userid);
+	User user = null;
+	try {
+		user = userService.findById(userid);
+	}
+	catch(Exception e) {
+		logger.error("UserIdNotFoundException: " + e);
+		throw new UserIdNotFoundException(e.getMessage());
+	}
+	return user;
 }
+
+
+
+public List<Advertise> viewAllAdvertise() throws UserAddNotFoundException {
+	logger.info("Advertise ");
+	try {
+		list2=userService.viewAllAdvertise();
+		logger.info("All advertise are");
+		for (Advertise advertise : list2) {
+			logger.info(advertise);
+		}
+	}
+	catch (Exception e) {
+		logger.error("UserAddNotFetchedException : "+e);
+		throw new UserAddNotFoundException(e.getMessage());
+	}
+	
+	return list2;
+}
+
+
+
+
+
+
+
+
+
+
+}
+
 	
 	
 

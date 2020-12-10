@@ -10,9 +10,13 @@ import javax.persistence.Query;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import com.cg.oas.entity.AdvertiseEntity;
 import com.cg.oas.entity.UserEntity;
+
 import com.cg.oas.exceptions.IdNotFoundException;
 import com.cg.oas.exceptions.ListNotDisplayedException;
+import com.cg.oas.exceptions.UserAddNotFoundException;
+import com.cg.oas.exceptions.UserIdNotFoundException;
 
 
 public class UserDAOImpl implements UserDAO
@@ -63,6 +67,65 @@ public List<UserEntity> viewAllUsers() throws ListNotDisplayedException {
 			throw new IdNotFoundException("UserId: " + user_id);
 		return userEntity;
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+public UserEntity findById(int userid) throws UserIdNotFoundException{
+		
+		UserEntity UserEntity=entityManager.find(UserEntity.class, userid);
+		if (UserEntity == null) {
+			throw new UserIdNotFoundException("userid  "+userid+"not found");
+		}
+		return UserEntity;
+		
+	}
+	
+	
+	
+public List<AdvertiseEntity> viewAllAdvertise() throws UserAddNotFoundException {
+		
+		List<AdvertiseEntity> list;
+		Query query = entityManager.createQuery("SELECT advertise from AdvertiseEntity advertise");
+		list = query.getResultList();
+
+		if(list==null)
+			throw new UserAddNotFoundException("No Entry in Database");
+		
+		return list;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 }

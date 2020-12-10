@@ -80,6 +80,35 @@ public class OasUtils
 			return users;
 		}
 		
+		
+		
+		
+		
+		
+		
+		
+	/*	public static List<Advertise> convertAdvertiseEntityListToAdvertise(List<AdvertiseEntity> entities) {
+			Iterator<AdvertiseEntity> itr = entities.iterator();
+			List<Advertise> advertise = new ArrayList();
+			
+			while (itr.hasNext()) {
+				AdvertiseEntity advertiseEntity1=itr.next();
+				
+				advertise.add(new Advertise(advertiseEntity1.getAdid(),advertiseEntity1.getTitle(),advertiseEntity1.getCategory(),advertiseEntity1.getDescription(),advertiseEntity1.getPrice(),advertiseEntity1.getStatus()));
+			}
+			return advertise;
+		}
+	
+		*/
+		
+		
+		
+		
+		
+		
+		
+		
+		
 }
 	
 

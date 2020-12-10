@@ -9,6 +9,8 @@ import com.cg.oas.exceptions.AdvertiseNotFoundException;
 import com.cg.oas.exceptions.IdNotFoundException;
 import com.cg.oas.exceptions.ListNotDisplayedException;
 import com.cg.oas.exceptions.NameIsBlankException;
+import com.cg.oas.exceptions.UserAddNotFoundException;
+import com.cg.oas.exceptions.UserIdNotFoundException;
 
 //import com.cg.oas.exceptions.IdNotFoundException;
 import org.apache.logging.log4j.Logger;
@@ -182,6 +184,28 @@ public class OasControllerTest
 			logger.info("[END] testViewUsersSuccess()");
 		}
 		//Mahima's code ended
+		
+		
+		
+	// view user details by id	
+		@Test
+		public void testUserSearchSuccess() throws UserIdNotFoundException {
+			logger.info("[START] testUserSearchSuccess()");
+			assertNotNull("User Found", oasController.findById(1));
+			logger.info("[END] testUserSearchSuccess()");
+		}
+		
+		@Test(expected = UserIdNotFoundException.class)
+		public void testUserSearchFailed() throws UserIdNotFoundException {
+			logger.info("[START] testUserSearchFailed()");
+			oasController.findById(2);
+			logger.info("[END] testUserSearchFailed()");
+		}
+
+		
+		
+		
+		
 		
 		
 }
