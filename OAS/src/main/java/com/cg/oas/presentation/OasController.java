@@ -6,20 +6,28 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.cg.oas.dto.Advertise;
-
-
-
+import com.cg.oas.dto.Category;
+import com.cg.oas.dto.User;
 import com.cg.oas.exceptions.AdvertiseNotFound;
 import com.cg.oas.exceptions.AdvertiseNotFoundException;
+import com.cg.oas.exceptions.IdNotFoundException;
+import com.cg.oas.exceptions.ListNotDisplayedException;
+import com.cg.oas.exceptions.NameIsBlankException;
 import com.cg.oas.service.AdvertiseService;
 import com.cg.oas.service.AdvertiseServiceImpl;
+import com.cg.oas.service.CategoryService;
+import com.cg.oas.service.CategoryServiceImpl;
+import com.cg.oas.service.UserService;
+import com.cg.oas.service.UserServiceImpl;
 
 
 public class OasController
 {
 	private static Logger logger = LogManager.getLogger(OasController.class.getName());
-	
 	AdvertiseService advertiseService = new AdvertiseServiceImpl();
+	CategoryService categoryService = new CategoryServiceImpl();
+	UserService userService=new UserServiceImpl();
+	List<User> list1;
 
 	public Advertise findAdvertiseTitle(String  title) throws AdvertiseNotFound {
 		logger.info("Finding advertise for : " + title);
@@ -91,5 +99,67 @@ public class OasController
 		return list1;
 	}
 	
+	public Category addCategory(Category category) 
+	{
+		logger.info("Adding Category");
+		Category c=categoryService.addCategory(category);
+	    return c;
+	}
 	
+
+	
+	public Category checkName(String categoryName) throws NameIsBlankException 
+	{
+		logger.info("Checking category for name: " + categoryName);
+		Category category = null;
+		try 
+		{
+			category = categoryService.checkName(categoryName);
+		}
+		catch(Exception  e) 
+		{
+			logger.error("NameIsBlankException : " + e);
+			throw new NameIsBlankException (e.getMessage());
+		}
+		return category;
+	}
+
+
+	public List<User> viewAllUsers() throws ListNotDisplayedException {
+		logger.info("All List of users");
+		try {
+			list1=userService.viewAllUsers();
+			logger.info("-----------All users are-------" );
+			for (User user : list1) {
+				logger.info(user);
+			}
+		}
+		catch (Exception e) {
+			logger.error("ListNotDisplayedException : "+e);
+			throw new ListNotDisplayedException(e.getMessage());
+		}
+		
+		return list1;
+	}
+
+	
+	public User DeleteById(int userId) throws IdNotFoundException
+	{    
+	logger.info("Deleting User"+ userId);
+		 User user = null;
+			try 
+			{
+				user= userService.DeleteById(userId);
+			}
+			catch(Exception e) 
+			{
+				logger.error("IdNotFoundException: " + e);
+				throw new IdNotFoundException(e.getMessage());
+			}
+			return user;
+		
+	}
 }
+	
+	
+

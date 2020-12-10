@@ -3,12 +3,17 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import com.cg.oas.dto.Advertise;
+import com.cg.oas.dto.Category;
 import com.cg.oas.exceptions.AdvertiseNotFound;
 import com.cg.oas.exceptions.AdvertiseNotFoundException;
+import com.cg.oas.exceptions.IdNotFoundException;
+import com.cg.oas.exceptions.ListNotDisplayedException;
+import com.cg.oas.exceptions.NameIsBlankException;
 
 //import com.cg.oas.exceptions.IdNotFoundException;
 import org.apache.logging.log4j.Logger;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 
@@ -26,6 +31,9 @@ public class OasControllerTest
 {
 	private static OasController oasController;
 	private static Logger logger;
+	/*
+	 * Runs at the beginning only once
+	 */
 	@BeforeClass
 	public static void setUp() 
 	{
@@ -117,5 +125,64 @@ public class OasControllerTest
 			oasController.editAdvertise(-4);
 			logger.info("[END] testAdvertiseEditFailed()");
 		}
+		//Mahima's code
+		@Test
+		public void addCategorySuccess() 
+		{
+			logger.info("[START] addCategorySuccess()");
+			Category cate=new Category("Clothes","Fashionable Item");
+			Category cate1=oasController.addCategory(cate);
+			String s=cate1.getCategory_name();
+			assertEquals(cate.getCategory_name(),s);
+			logger.info("[END] addCandidateSuccess()");
+		
+		}
+
+		
+		//Test to check categoryName is not blank 
+
+		@Test
+		public void testCategoryName() throws NameIsBlankException
+		{
+			
+			logger.info("[START] testCategoryName()");
+			Category cate=new Category("Hardware","Hardware items");
+			String name= oasController.addCategory(cate).getCategory_name();
+			assertNotNull("Category_Name is not null", oasController.checkName(name));
+			logger.info("[END] testCategoryName");
+		}
+		
+
+		//Test to give exception while deleting user who do not exists
+		
+		@Test(expected = IdNotFoundException.class)
+		public void testDeleteByIdFailed() throws IdNotFoundException 
+		{
+			logger.info("[START]  testDeleteByIdFailed()");
+			oasController.DeleteById(104);
+			logger.info("[END]  testDeleteByIdFailed()");
+		}
+		
+		//Test to delete user from database successfully
+		@Test
+		public void testDeleteByIdSuccess() throws IdNotFoundException
+		{
+			logger.info("[START] testDeleteUser()");
+			assertNotNull("UserEntity", oasController.DeleteById(102));
+			logger.info("[END] testDeleteByIdSuccess()");
+		}
+		
+		//Test to view UserList successfully!
+		@Test
+		public void testViewUsersSuccess() throws ListNotDisplayedException
+		{
+			logger.info("[START] testViewUsersSuccess()");
+			logger.info("Database fetched successfully");
+			assertFalse(oasController.viewAllUsers().isEmpty());
+			logger.info("[END] testViewUsersSuccess()");
+		}
+		//Mahima's code ended
+		
+		
 }
 
