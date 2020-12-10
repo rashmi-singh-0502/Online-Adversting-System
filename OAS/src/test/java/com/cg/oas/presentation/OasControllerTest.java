@@ -4,9 +4,13 @@ import org.junit.Test;
 
 import com.cg.oas.dto.Advertise;
 import com.cg.oas.dto.Category;
+import com.cg.oas.entity.AdvertiseEntity;
+import com.cg.oas.entity.UserEntity;
 import com.cg.oas.exceptions.AdvertiseNotFound;
 import com.cg.oas.exceptions.AdvertiseNotFoundException;
 import com.cg.oas.exceptions.IdNotFoundException;
+import com.cg.oas.exceptions.InvalidDataFormatException;
+import com.cg.oas.exceptions.InvalidUserFormatException;
 import com.cg.oas.exceptions.ListNotDisplayedException;
 import com.cg.oas.exceptions.NameIsBlankException;
 import com.cg.oas.exceptions.UserAddNotFoundException;
@@ -201,12 +205,59 @@ public class OasControllerTest
 			oasController.findById(2);
 			logger.info("[END] testUserSearchFailed()");
 		}
-
 		
+		//Test to Post new Advertise
+		@Test(expected = InvalidDataFormatException.class)//all data is in valid format
+		public void testValidPostAdvertiseSuccess() throws InvalidDataFormatException {
+			logger.info("[START] testValidPostAdvertiseSuccess()");
+			assertNotNull("New Advertise Posted Successfully", oasController.addData(new AdvertiseEntity(5,"abc","vehicle","desc",120,"open")));
+			logger.info("[END] testValidPostAdvertiseSuccess()");
+		}
 		
+		//Test to Post new Advertise
+		@Test(expected = InvalidDataFormatException.class)//category is null
+		public void testValidPostAdvertiseFailure() throws InvalidDataFormatException {
+			logger.info("[START] testValidPostAdvertiseSuccess()");
+			assertNotNull("New Advertise Post Failed", oasController.addData(new AdvertiseEntity(3,"abc","","desc",120,"open")));
+			logger.info("[END] testValidPostAdvertiseSuccess()");
+		}
+		//Test to Post new Advertise
+		@Test(expected = InvalidDataFormatException.class)//email id is in invalid format
+		public void testValidPostAdvertiseFailure1() throws InvalidDataFormatException {
+			logger.info("[START] testValidPostAdvertiseSuccess()");
+			assertNotNull("New Advertise Post Failed", oasController.addData(new AdvertiseEntity(3,"abc","vehicle","desc",120,"@#$")));
+			logger.info("[END] testValidPostAdvertiseSuccess()");
+		}	
 		
+		//Test to register new user
+		@Test(expected = InvalidUserFormatException.class)//all info is in valid format
+		public void testValidRegisterUserSuccess() throws InvalidUserFormatException {
+			logger.info("[START] testValidPostAdvertiseSuccess()");
+			assertNotNull("New User Registered Successfully", oasController.addData(new UserEntity(1,"abc","pune",12345,"abc@gmail.com")));
+			logger.info("[END] testValidPostAdvertiseSuccess()");
+		}
 		
+		//Test to register new user
+		@Test(expected = InvalidUserFormatException.class)//all info is in valid format
+		public void testValidRegisterUserSuccess1() throws InvalidUserFormatException {
+			logger.info("[START] testValidPostAdvertiseSuccess()");
+			assertNotNull("New User Registered Successfully", oasController.addData(new UserEntity(2,"abc","pune",0123456,"abc@gmail.com")));
+			logger.info("[END] testValidPostAdvertiseSuccess()");
+		}
 		
+		//Test to register new user
+		@Test(expected = InvalidUserFormatException.class)//user name is in invalid format
+		public void testValidRegisterUserFailure() throws InvalidUserFormatException {
+			logger.info("[START] testValidegisterUserFailure()");
+			assertNotNull("New User Registration Failed", oasController.addData(new UserEntity(2,"abc123","pune",0,"abc@gmail.com")));
+			logger.info("[END] testValidPostAdvertiseSuccess()");
+		}
+		@Test(expected = InvalidUserFormatException.class)//address is blank
+		public void testValidRegisterUserFailure1() throws InvalidUserFormatException {
+			logger.info("[START] testValidRegisterUserFailure()");
+			assertNotNull("New  Successfully", oasController.addData(new UserEntity(2,"abc","",124589,"abc@gmail.com")));
+			logger.info("[END] testValidPostAdvertiseSuccess()");
+		}
 		
 }
 

@@ -8,10 +8,13 @@ import org.apache.logging.log4j.Logger;
 import com.cg.oas.dto.Advertise;
 import com.cg.oas.dto.Category;
 import com.cg.oas.dto.User;
-
+import com.cg.oas.entity.AdvertiseEntity;
+import com.cg.oas.entity.UserEntity;
 import com.cg.oas.exceptions.AdvertiseNotFound;
 import com.cg.oas.exceptions.AdvertiseNotFoundException;
 import com.cg.oas.exceptions.IdNotFoundException;
+import com.cg.oas.exceptions.InvalidDataFormatException;
+import com.cg.oas.exceptions.InvalidUserFormatException;
 import com.cg.oas.exceptions.ListNotDisplayedException;
 import com.cg.oas.exceptions.NameIsBlankException;
 import com.cg.oas.exceptions.UserAddNotFoundException;
@@ -204,14 +207,36 @@ public List<Advertise> viewAllAdvertise() throws UserAddNotFoundException {
 }
 
 
+public Advertise addData(AdvertiseEntity adEntity) throws InvalidDataFormatException  {
+	logger.info("Posting new advertisement");
+	Advertise ad;
+	try {
+		ad = advertiseService.addData(adEntity);
+	}
+	catch(Exception e) {
+		logger.error("InvalidDataFormatException : " + e);
+		throw new InvalidDataFormatException(e.getMessage());
+	}
+	return ad;
+}
+
+public User addData(UserEntity regEntity) throws InvalidUserFormatException  {
+	logger.info("Registering New User");
+	User ad=null;
+	try {
+		ad =userService.addData(regEntity);
+	}
+	catch(Exception e) {
+		logger.error("InvalidUserFormatException : " + e);
+		throw new InvalidUserFormatException(e.getMessage());
+	}
+	return ad;
 
 
 
 
 
-
-
-
+}
 }
 
 	

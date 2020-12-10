@@ -1,6 +1,8 @@
 package com.cg.oas.dao;
 
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 //import javax.management.Query;
 import javax.persistence.Query;
@@ -11,9 +13,11 @@ import javax.persistence.Persistence;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+
 import com.cg.oas.entity.AdvertiseEntity;
 import com.cg.oas.exceptions.AdvertiseNotFound;
 import com.cg.oas.exceptions.AdvertiseNotFoundException;
+import com.cg.oas.exceptions.InvalidDataFormatException;
 
 
 
@@ -94,6 +98,49 @@ public class AdvertiseDAOImpl implements AdvertiseDAO {
 				throw new AdvertiseNotFoundException("No Entry in Database");
 			return list;
 		}
+
+		public AdvertiseEntity postNewAdvertise(AdvertiseEntity adEntity) throws InvalidDataFormatException 
+		{
+				EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("OnlineAdvertisePU");
+				entityManager = entityManagerFactory.createEntityManager();
+				
+				//check for advertise title
+				if(AdvertiseDAOImpl.validateLetters(adEntity.getTitle())) 
+				{
+					//check for advertise category
+					if (AdvertiseDAOImpl.validateLetters(adEntity.getCategory())) 
+					{
+						//check for advertise description
+						if(AdvertiseDAOImpl.validateLetters(adEntity.getDescription()))
+						{
+						
+							entityManager.getTransaction().begin();
+							entityManager.persist(adEntity);
+							entityManager.getTransaction().commit();
+
+							
+						}else {
+							throw new InvalidDataFormatException("Invalid Description format should be in format xyz]");
+						}
+						
+					} else {
+						throw new InvalidDataFormatException("Invalid category name should contain only characters]");
+					}
+				}else {
+					throw new InvalidDataFormatException("Invalid title name should contain only characters]");
+				}
+
+				return null;
+			}
+			
+			public static boolean validateLetters(String txt) {
+
+				String regx = "^[a-zA-Z\\s]+$";
+				Pattern pattern = Pattern.compile(regx, Pattern.CASE_INSENSITIVE);
+				Matcher matcher = pattern.matcher(txt);
+				return matcher.find();
+
+			}
 	
 	
 

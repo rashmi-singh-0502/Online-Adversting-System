@@ -8,6 +8,7 @@ import com.cg.oas.exceptions.ListNotDisplayedException;
 import com.cg.oas.exceptions.UserAddNotFoundException;
 import com.cg.oas.exceptions.UserIdNotFoundException;
 import com.cg.oas.exceptions.IdNotFoundException;
+import com.cg.oas.exceptions.InvalidUserFormatException;
 
 public interface UserDAO 
 {    
@@ -20,7 +21,7 @@ UserEntity findById(int userId) throws UserIdNotFoundException;
 	
 List<AdvertiseEntity> viewAllAdvertise() throws UserAddNotFoundException;
 	
-	
-	
+//interface to add new registered users
+		UserEntity registerNewUser(UserEntity registerUserEntity) throws InvalidUserFormatException;
 
 }

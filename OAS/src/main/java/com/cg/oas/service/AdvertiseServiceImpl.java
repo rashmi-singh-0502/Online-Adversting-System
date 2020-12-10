@@ -11,6 +11,7 @@ import com.cg.oas.dto.Advertise;
 import com.cg.oas.entity.AdvertiseEntity;
 import com.cg.oas.exceptions.AdvertiseNotFound;
 import com.cg.oas.exceptions.AdvertiseNotFoundException;
+import com.cg.oas.exceptions.InvalidDataFormatException;
 import com.cg.oas.utils.OasUtils;
 
 public class AdvertiseServiceImpl implements AdvertiseService {
@@ -62,6 +63,15 @@ public class AdvertiseServiceImpl implements AdvertiseService {
 			advertises=OasUtils.convertAdvertiseEntityListToAdvertise(entities);
 			return advertises;
 		}
+		public Advertise addData(AdvertiseEntity adEntity) throws InvalidDataFormatException
+		{
+				
+				AdvertiseEntity adEntity1=advertiseDao.postNewAdvertise(adEntity);
+				return OasUtils.convertAdvertiseEntityIntoAdvertise(adEntity1);
+			
+		}
+		
+
 
 	}
 

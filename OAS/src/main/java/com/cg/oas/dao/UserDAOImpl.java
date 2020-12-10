@@ -1,6 +1,8 @@
 package com.cg.oas.dao;
 
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -12,8 +14,8 @@ import org.apache.logging.log4j.Logger;
 
 import com.cg.oas.entity.AdvertiseEntity;
 import com.cg.oas.entity.UserEntity;
-
 import com.cg.oas.exceptions.IdNotFoundException;
+import com.cg.oas.exceptions.InvalidUserFormatException;
 import com.cg.oas.exceptions.ListNotDisplayedException;
 import com.cg.oas.exceptions.UserAddNotFoundException;
 import com.cg.oas.exceptions.UserIdNotFoundException;
@@ -107,6 +109,60 @@ public List<AdvertiseEntity> viewAllAdvertise() throws UserAddNotFoundException 
 	}
 	
 	
+public UserEntity registerNewUser(UserEntity regEntity) throws InvalidUserFormatException {
+	EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("OnlineAdvertisePU");
+	entityManager = entityManagerFactory.createEntityManager();
+	
+	//check for user name
+	if(UserDAOImpl.validateLetters(regEntity.getUser_name())) 
+	{
+		//check for user address
+		if (UserDAOImpl.validateLetters(regEntity.getUser_address())) 
+		{
+			//check for email
+			if(UserDAOImpl.isValidEmail(regEntity.getUser_email()))
+			{
+			
+				entityManager.getTransaction().begin();
+				entityManager.persist(regEntity);
+				entityManager.getTransaction().commit();
+
+				
+			}
+			else 
+			{
+				throw new InvalidUserFormatException("Invalid Name format [should be in format xyz]");
+			}
+			
+		} 
+		else 
+		{
+			throw new InvalidUserFormatException("Invalid Address Format[should contain only characters]");
+		}
+	}else {
+		throw new InvalidUserFormatException("Invalid Email Format [should contain only characters]");
+	}
+
+	return null;
+}
+
+public static boolean validateLetters(String txt) {
+
+	String regx = "^[a-zA-Z\\s]+$";
+	Pattern pattern = Pattern.compile(regx, Pattern.CASE_INSENSITIVE);
+	Matcher matcher = pattern.matcher(txt);
+	return matcher.find();
+
+}
+public static boolean isValidEmail(String email) {
+	String emailRegex = "^[a-zA-Z0-9_+&*1-]+(?:\\." + "[a-zA-Z0-9_+&*-]+)*@" + "(?:[a-zA-Z0-9-]+\\.)+[a-z"
+			+ "A-Z]{2,7}$";
+
+	Pattern pat = Pattern.compile(emailRegex);
+	if (email == null)
+		return false;
+	return pat.matcher(email).matches();
+}
 	
 	
 	

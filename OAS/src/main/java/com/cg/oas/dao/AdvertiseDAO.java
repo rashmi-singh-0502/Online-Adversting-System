@@ -5,6 +5,7 @@ import java.util.List;
 import com.cg.oas.entity.AdvertiseEntity;
 import com.cg.oas.exceptions.AdvertiseNotFound;
 import com.cg.oas.exceptions.AdvertiseNotFoundException;
+import com.cg.oas.exceptions.InvalidDataFormatException;
 
 
 public interface AdvertiseDAO {
@@ -21,4 +22,7 @@ public interface AdvertiseDAO {
 		
 		//function for reading all advertises
 		List<AdvertiseEntity> viewAllAdvertises() throws AdvertiseNotFoundException;
+		
+		//interface for post new advertise
+		AdvertiseEntity postNewAdvertise(AdvertiseEntity adEntity) throws InvalidDataFormatException;
 }

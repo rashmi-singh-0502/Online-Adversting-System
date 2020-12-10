@@ -12,6 +12,7 @@ import com.cg.oas.dto.User;
 import com.cg.oas.entity.AdvertiseEntity;
 import com.cg.oas.entity.UserEntity;
 import com.cg.oas.exceptions.IdNotFoundException;
+import com.cg.oas.exceptions.InvalidUserFormatException;
 import com.cg.oas.exceptions.ListNotDisplayedException;
 import com.cg.oas.exceptions.UserAddNotFoundException;
 import com.cg.oas.exceptions.UserIdNotFoundException;
@@ -66,7 +67,13 @@ public User findById(int userid) throws UserIdNotFoundException {
 	}
 	
 	
-	
+	public User addData(UserEntity adEntity) throws InvalidUserFormatException
+	{
+			
+			UserEntity adEntity1=userDao.registerNewUser(adEntity);
+			return OasUtils.convertUserEntityIntoUser(adEntity1);
+		
+	}
 	
 	
 	

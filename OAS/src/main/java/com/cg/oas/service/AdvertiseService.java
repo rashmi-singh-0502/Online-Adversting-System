@@ -3,8 +3,10 @@ package com.cg.oas.service;
 import java.util.List;
 
 import com.cg.oas.dto.Advertise;
+import com.cg.oas.entity.AdvertiseEntity;
 import com.cg.oas.exceptions.AdvertiseNotFound;
 import com.cg.oas.exceptions.AdvertiseNotFoundException;
+import com.cg.oas.exceptions.InvalidDataFormatException;
 
 public interface AdvertiseService {
 	Advertise findAdvertiseTitle(String  advertisename) throws AdvertiseNotFound;
@@ -20,4 +22,7 @@ public interface AdvertiseService {
 
 		//function for reading all advertises
 		public List<Advertise> viewAllAdvertises() throws AdvertiseNotFoundException;
+
+		//function for post new advertisements
+		Advertise addData(AdvertiseEntity adEntity) throws InvalidDataFormatException;
 }
