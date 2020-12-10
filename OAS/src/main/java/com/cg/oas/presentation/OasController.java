@@ -33,4 +33,19 @@ public class OasController
 		return ad;
 	}
 	
+  //Delete Advertise By AdvertisementID
+	public Advertise DeleteAdvertiseById(int advertiseId) throws AdvertiseNotFound {
+		logger.info("deleting advertise for id: " + advertiseId);
+		Advertise ad = null;
+		try {
+			ad = advertiseService.DeleteById(advertiseId);
+		}
+		catch(Exception e) {
+			logger.error("AdvertiseNotFoundException: " + e);
+			throw new AdvertiseNotFound(e.getMessage());
+		}
+		return ad;
+	
+}
+	
 }

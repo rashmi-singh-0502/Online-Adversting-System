@@ -37,7 +37,26 @@ public class AdvertiseDAOImpl implements AdvertiseDAO {
 		//logger.info("Seacrh Result : "    + advertiseEntity +   "Search Successful!!");
 		//if(advertiseEntity==null)
 			//throw new AdTitleNotFoundException("  Wrong AdvertiseId: " +  title);
-		//return advertiseEntity;
+	
+	//return advertiseEntity;
+		
 	}
+	
+	// Delete by Advertisement ID
+	
+	public AdvertiseEntity DeleteById(int advertiseId) throws AdvertiseNotFound {
+		entityManager.getTransaction().begin();
+		AdvertiseEntity advertiseEntity = entityManager.find(AdvertiseEntity.class, advertiseId);
+		entityManager.remove(advertiseEntity);
+		entityManager.getTransaction().commit();
+		System.out.println("Advertise deleted succssfully!!");
+		logger.info("Database returned AdvertiseEntity: " + advertiseEntity);
+		if(advertiseEntity==null)
+			throw new AdvertiseNotFound("AdvertiseId: " + advertiseId);
+		return advertiseEntity;// TODO Auto-generated method stub
+
+}
+	
+	
 
 }

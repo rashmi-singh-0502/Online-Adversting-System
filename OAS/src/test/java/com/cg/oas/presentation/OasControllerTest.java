@@ -56,4 +56,20 @@ public class OasControllerTest
 		oasController.findAdvertiseTitle("");
 		logger.info("[END] testAdvertiseSearchFailed()");
 	}
+	
+	//Delete Advertise By AdvertisementID
+	@Test
+	public void testAdvertiseDeleteSuccess() throws AdvertiseNotFound {
+		logger.info("[START] testAdvertiseDeleteSuccess()");
+		assertNotNull("Advertise Found", oasController.DeleteAdvertiseById(5));
+		logger.info("[END] testAdvertiseDeleteSuccess()");
+	}
+	
+	@Test(expected = AdvertiseNotFound.class)
+	public void testAdvertiseDeleteFailed() throws AdvertiseNotFound {
+		logger.info("[START] testAdvertiseDeleteFailed()");
+		oasController.DeleteAdvertiseById(-2);
+		logger.info("[END] testAdvertiseDeleteFailed()");
+	}
 }
+

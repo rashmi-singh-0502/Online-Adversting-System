@@ -25,4 +25,17 @@ public class AdvertiseServiceImpl implements AdvertiseService {
 		// TODO Auto-generated method stub
 		return null;
 	}
-}
+
+	
+	//Delete Advertise By AdvertisementID
+	public Advertise DeleteById(int advertiseId) throws AdvertiseNotFound {
+		// TODO Auto-generated method stub
+		
+			// TODO Auto-generated method stub
+					AdvertiseEntity advertiseEntity = advertiseDao.DeleteById(advertiseId);
+					logger.info("AdvertiseEntity: " + advertiseEntity);
+					return OasUtils.convertAdvertiseEntityIntoAdvertise(advertiseEntity);
+		}
+
+	}
+
