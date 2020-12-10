@@ -4,10 +4,12 @@ import org.junit.Test;
 
 import com.cg.oas.dto.Advertise;
 import com.cg.oas.exceptions.AdvertiseNotFound;
+import com.cg.oas.exceptions.AdvertiseNotFoundException;
 
 //import com.cg.oas.exceptions.IdNotFoundException;
 import org.apache.logging.log4j.Logger;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 
 import java.util.List;
@@ -71,5 +73,49 @@ public class OasControllerTest
 		oasController.DeleteAdvertiseById(-2);
 		logger.info("[END] testAdvertiseDeleteFailed()");
 	}
+	
+	//testing read advertise by id
+		 //this will return the advertise of particular advertise id
+		@Test
+		public void testAdvertiseReadSuccess() throws AdvertiseNotFoundException {
+			logger.info("[START] testAdvertiseReadSuccess()");
+			assertNotNull("Advertise Found", oasController.readAdvertiseById(1));
+			logger.info("[END] testAdvertiseReadSuccess()");
+		}
+		
+		//this will throw exception if advertise id is not present
+		@Test(expected = AdvertiseNotFoundException.class)
+		public void testAdvertiseReadFailed() throws AdvertiseNotFoundException {
+			logger.info("[START] testAdvertiseReadFailed()");
+			oasController.readAdvertiseById(-2);
+			logger.info("[END] testAdvertiseReadFailed()");
+		}
+		
+		//testing view all advertises
+		//this will return the list of advertises, and throw exception if list is empty
+		@Test 
+		public void testViewAdvertisesSuccess() throws AdvertiseNotFoundException {
+			logger.info("[START] testViewAdvertisesSuccess()");
+			logger.info("Database fetched successfully");
+			assertFalse(oasController.viewAllAdvertises().isEmpty());
+			logger.info("[END] testViewAdvertisesSuccess()");
+		}
+		
+		//testing edit advertise
+		//this will edit and return the edited advertise
+		@Test
+		public void testAdvertiseEditSuccess() throws AdvertiseNotFoundException {
+			logger.info("[START] testAdvertiseEditSuccess()");
+			assertNotNull("Advertise Found", oasController.editAdvertise(1));
+			logger.info("[END] testAdvertiseEditSuccess()");
+		}
+		
+		//this will throw exception if id is not present
+		@Test(expected = AdvertiseNotFoundException.class)
+		public void testAdvertiseEditFailed() throws AdvertiseNotFoundException {
+			logger.info("[START] testAdvertiseEditFailed()");
+			oasController.editAdvertise(-4);
+			logger.info("[END] testAdvertiseEditFailed()");
+		}
 }
 
