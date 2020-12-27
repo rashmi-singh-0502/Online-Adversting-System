@@ -10,32 +10,32 @@ import com.cg.oas.dto.Advertise;
 public class AdvertiseControllerTest 
 {
 	public Advertise advertise;
-	//TEST CASE TO READ ALL ADVERTISES - PASS
+	//TEST CASE TO READ ALL ADVERTISES
 	@Test
 	public void testGetAllAdvertises()
 	{
 		RestTemplate restTemplate = new RestTemplate();
-		ResponseEntity<Advertise[]> responseEntity = restTemplate.getForEntity("http://localhost:8080/cgoas/advertise/getall", Advertise[].class);
+		ResponseEntity<Advertise[]> responseEntity = restTemplate.getForEntity("http://localhost:8081/cgoas/advertise/getall", Advertise[].class);
 		assertNotNull(responseEntity);
 	}
 		
-	//TEST CASE TO READ AN ADVERTISE BY ID AS POSITIVE- PASS
+	//TEST CASE TO READ AN ADVERTISE BY ID AS POSITIVE
 	@Test
 	public void testReadAdvertiseByIdSuccess()
 	{
 		RestTemplate restTemplate = new RestTemplate();
-		advertise = restTemplate.getForObject("http://localhost:8080/cgoas/advertise/get/id/1", Advertise.class);
+		advertise = restTemplate.getForObject("http://localhost:8081/cgoas/advertise/get/id/1", Advertise.class);
 		assertNotNull(advertise);
 	}
 	
-	//TEST CASE TO READ AN ADVERTISE BY ID AS NEGATIVE - FAIL
+	//TEST CASE TO READ AN ADVERTISE BY ID AS NEGATIVE
 	@Test
 	public void testReadAdvertiseByIdNegative()
 	{
 		RestTemplate restTemplate = new RestTemplate();
 		try 
 		{
-			advertise = restTemplate.getForObject("http://localhost:8080/cgoas/advertise/get/id/-1", Advertise.class);
+			advertise = restTemplate.getForObject("http://localhost:8081/cgoas/advertise/get/id/-1", Advertise.class);
 		}
 		catch(Exception e) 
 		{
@@ -43,18 +43,18 @@ public class AdvertiseControllerTest
 		}
 		finally 
 		{
-			assertNotNull(advertise,"Advertise with negative id not found");
+			assertNull(advertise,"Advertise with negative id not found");
 		}
 	}
 	
-	//TEST CASE TO READ AN ADVERTISE BY ID AS ZERO - FAIL
+	//TEST CASE TO READ AN ADVERTISE BY ID AS ZERO
 	@Test
 	public void testReadAdvertiseByIdZero()
 	{
 		RestTemplate restTemplate = new RestTemplate();
 		try 
 		{
-			advertise = restTemplate.getForObject("http://localhost:8080/cgoas/advertise/get/id/0", Advertise.class);
+			advertise = restTemplate.getForObject("http://localhost:8081/cgoas/advertise/get/id/0", Advertise.class);
 		}
 		catch(Exception e) 
 		{
@@ -62,18 +62,18 @@ public class AdvertiseControllerTest
 		}
 		finally 
 		{
-			assertNotNull(advertise,"Advertise with id = 0 not found");
+			assertNull(advertise,"Advertise with id = 0 not found");
 		}
 	}
 	
-	//TEST CASE TO READ AN ADVERTISE BY ID AS ZERO - FAIL
+	//TEST CASE TO READ AN ADVERTISE BY BLANK ID
 	@Test
 	public void testReadAdvertiseByBlankId()
 	{
 		RestTemplate restTemplate = new RestTemplate();
 		try 
 		{
-			advertise = restTemplate.getForObject("http://localhost:8080/cgoas/advertise/get/id/", Advertise.class);
+			advertise = restTemplate.getForObject("http://localhost:8081/cgoas/advertise/get/id/", Advertise.class);
 		}
 		catch(Exception e) 
 		{
@@ -81,27 +81,27 @@ public class AdvertiseControllerTest
 		}
 		finally 
 		{
-			assertNotNull(advertise,"Please enter a valid advertise id");
+			assertNull(advertise,"Please enter a valid advertise id");
 		}
 	}
 		
-	//TEST CASE TO READ AN ADVERTISE BY TITLE - PASS
+	//TEST CASE TO READ AN ADVERTISE BY TITLE
 	@Test
 	public void testReadAdvertiseByTitleSuccess()
 	{
 		RestTemplate restTemplate = new RestTemplate();
-		ResponseEntity<Advertise[]> responseEntity = restTemplate.getForEntity("http://localhost:8080/cgoas/advertise/get/title/Table", Advertise[].class);
+		ResponseEntity<Advertise[]> responseEntity = restTemplate.getForEntity("http://localhost:8081/cgoas/advertise/get/title/Table", Advertise[].class);
 		assertNotNull(responseEntity);
 	}
 		
-	//TEST CASE TO READ AN ADVERTISE BY NO TITLE - FAIL
+	//TEST CASE TO READ AN ADVERTISE BY BLANK TITLE
 	@Test
 	public void testReadAdvertiseByBlankTitle()
 	{
 		RestTemplate restTemplate = new RestTemplate();
 		try
 		{
-			advertise = restTemplate.getForObject("http://localhost:8080/cgoas/advertise/get/title/", Advertise.class);
+			advertise = restTemplate.getForObject("http://localhost:8081/cgoas/advertise/get/title/", Advertise.class);
 		}
 		catch(Exception e)
 		{
@@ -109,18 +109,18 @@ public class AdvertiseControllerTest
 		}
 		finally
 		{
-			assertNotNull(advertise,"Please enter a valid advertise title");
+			assertNull(advertise,"Please enter a valid advertise title");
 		}
 	}
 
-	//TEST CASE TO READ AN ADVERTISE BY INCORRECT TITLE - FAIL
+	//TEST CASE TO READ AN ADVERTISE BY INVALID TITLE
 	@Test
-	public void testReadAdvertiseByIncorrectTitle()
+	public void testReadAdvertiseByInvalidTitle()
 	{
 		RestTemplate restTemplate = new RestTemplate();
 		try
 		{
-			advertise = restTemplate.getForObject("http://localhost:8080/cgoas/advertise/get/title/Tabel", Advertise.class);
+			advertise = restTemplate.getForObject("http://localhost:8081/cgoas/advertise/get/title/Tabel", Advertise.class);
 		}
 		catch(Exception e)
 		{
@@ -128,7 +128,7 @@ public class AdvertiseControllerTest
 		}
 		finally 
 		{
-			assertNotNull(advertise,"Tabel was not found");
+			assertNull(advertise,"Tabel was not found");
 		}
 	}
 		
@@ -138,11 +138,11 @@ public class AdvertiseControllerTest
 	{
 		RestTemplate restTemplate = new RestTemplate();
 		Advertise updatedAdvertise = new Advertise("Samsung 24-inch monitor","Flat, LED Display, Bezel less",15000.00);
-		restTemplate.put("http://localhost:8080/cgoas/advertise/update/id/1", updatedAdvertise);
+		restTemplate.put("http://localhost:8081/cgoas/advertise/update/id/1", updatedAdvertise);
 		assertNotNull(updatedAdvertise);
 	}
 	
-	//TEST CASE TO EDIT AN ADVERTISE BY ID AS NEGATIVE - FAIL
+	//TEST CASE TO EDIT AN ADVERTISE BY ID AS NEGATIVE
 	@Test
 	public void testEditAdvertiseByIdNegative()
 	{
@@ -150,7 +150,7 @@ public class AdvertiseControllerTest
 		try 
 		{
 			Advertise advertise = new Advertise("Samsung 24-inch monitor","Flat, LED Display, Bezel less",15000.00);
-			restTemplate.put("http://localhost:8080/cgoas/advertise/update/id/-1", advertise);
+			restTemplate.put("http://localhost:8081/cgoas/advertise/update/id/-1", advertise);
 		}
 		catch(Exception e) 
 		{
@@ -158,11 +158,11 @@ public class AdvertiseControllerTest
 		}
 		finally 
 		{
-			assertNotNull(advertise,"Advertise with negative id not found, cannot be updated");
+			assertNull(advertise,"Advertise with negative id not found, cannot be updated");
 		}
 	}
 	
-	//TEST CASE TO EDIT AN ADVERTISE BY ID AS ZERO - FAIL
+	//TEST CASE TO EDIT AN ADVERTISE BY ID AS ZERO
 	@Test
 	public void testEditAdvertiseByIdZero()
 	{
@@ -170,7 +170,7 @@ public class AdvertiseControllerTest
 		try 
 		{
 			Advertise advertise = new Advertise("Samsung 24-inch monitor","Flat, LED Display, Bezel less",15000.00);
-			restTemplate.put("http://localhost:8080/cgoas/advertise/update/id/0", advertise);
+			restTemplate.put("http://localhost:8081/cgoas/advertise/update/id/0", advertise);
 		}
 		catch(Exception e) 
 		{
@@ -178,28 +178,19 @@ public class AdvertiseControllerTest
 		}
 		finally 
 		{
-			assertNotNull(advertise,"Advertise with negative id = 0 not found, cannot be updated");
+			assertNull(advertise,"Advertise with id = 0 not found, cannot be updated");
 		}
 	}
-	//TEST CASE TO EDIT AN ADVERTISE BY TITLE - PASS
-	@Test
-	public void testEditAdvertiseByTitleSuccess()
-	{
-		RestTemplate restTemplate = new RestTemplate();
-		Advertise updatedAdvertise = new Advertise("Mi TV","Flat, LED Display, Bezel less, Colour",20000.00);
-		restTemplate.put("http://localhost:8080/cgoas/advertise/update/title/Samsung 24-inch monitor", updatedAdvertise);
-		assertNotNull(updatedAdvertise);
-	}
 	
-	//TEST CASE TO EDIT AN ADVERTISE BY INCORRECT TITLE - FAIL
+	//TEST CASE TO EDIT AN ADVERTISE BY BLANK ID
 	@Test
-	public void testEditAdvertiseByIncorrectTitle()
+	public void testEditAdvertiseByBlankId()
 	{
 		RestTemplate restTemplate = new RestTemplate();
 		try 
 		{
 			Advertise advertise = new Advertise("Samsung 24-inch monitor","Flat, LED Display, Bezel less",15000.00);
-			restTemplate.put("http://localhost:8080/cgoas/advertise/update/title/Smasung 24-inch monitor", advertise);
+			restTemplate.put("http://localhost:8081/cgoas/advertise/update/id/", advertise);
 		}
 		catch(Exception e) 
 		{
@@ -207,11 +198,41 @@ public class AdvertiseControllerTest
 		}
 		finally 
 		{
-			assertNotNull(advertise,"Smasung 24-inch monitor was not found, cannot be updated");
+			assertNull(advertise,"Please enter a valid advertise id");
 		}
 	}
 	
-	//TEST CASE TO EDIT AN ADVERTISE BY BLANK TITLE - FAIL
+	//TEST CASE TO EDIT AN ADVERTISE BY TITLE
+	@Test
+	public void testEditAdvertiseByTitleSuccess()
+	{
+		RestTemplate restTemplate = new RestTemplate();
+		Advertise updatedAdvertise = new Advertise("Mi TV","Flat, LED Display, Bezel less, Colour",20000.00);
+		restTemplate.put("http://localhost:8081/cgoas/advertise/update/title/Samsung 24-inch monitor", updatedAdvertise);
+		assertNotNull(updatedAdvertise);
+	}
+	
+	//TEST CASE TO EDIT AN ADVERTISE BY INVALID TITLE
+	@Test
+	public void testEditAdvertiseByInvalidTitle()
+	{
+		RestTemplate restTemplate = new RestTemplate();
+		try 
+		{
+			Advertise advertise = new Advertise("Samsung 24-inch monitor","Flat, LED Display, Bezel less",15000.00);
+			restTemplate.put("http://localhost:8081/cgoas/advertise/update/title/Smasung 24-inch monitor", advertise);
+		}
+		catch(Exception e) 
+		{
+			advertise = null;
+		}
+		finally 
+		{
+			assertNull(advertise,"Smasung 24-inch monitor was not found, cannot be updated");
+		}
+	}
+	
+	//TEST CASE TO EDIT AN ADVERTISE BY BLANK TITLE
 	@Test
 	public void testEditAdvertiseByBlankTitle()
 	{
@@ -219,7 +240,7 @@ public class AdvertiseControllerTest
 		try 
 		{
 			Advertise advertise = new Advertise("Samsung 24-inch monitor","Flat, LED Display, Bezel less",15000.00);
-			restTemplate.put("http://localhost:8080/cgoas/advertise/update/title/", advertise);
+			restTemplate.put("http://localhost:8081/cgoas/advertise/update/title/", advertise);
 		}
 		catch(Exception e) 
 		{
@@ -227,7 +248,7 @@ public class AdvertiseControllerTest
 		}
 		finally 
 		{
-			assertNotNull(advertise,"Please enter a valid advertise title");
+			assertNull(advertise,"Please enter a valid advertise title");
 		}
 	}
 }
