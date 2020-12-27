@@ -1,6 +1,7 @@
 package com.cg.oas.entity;
 
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -29,7 +30,7 @@ public class AdvertiseEntity {
 	@Column(name="price")
 	private double price;
 	
-	@ManyToOne(fetch=FetchType.EAGER)
+	@ManyToOne(cascade=CascadeType.ALL,fetch=FetchType.EAGER)
 	@JoinColumn(name="category_id")
 	private CategoryEntity category;
 	

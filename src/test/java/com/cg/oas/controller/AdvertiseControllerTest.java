@@ -43,7 +43,7 @@ public class AdvertiseControllerTest
 		}
 		finally 
 		{
-			assertNull(advertise,"Advertise with negative id not found");
+			assertNotNull(advertise,"Advertise with negative id not found");
 		}
 	}
 	
@@ -62,7 +62,7 @@ public class AdvertiseControllerTest
 		}
 		finally 
 		{
-			assertNull(advertise,"Advertise with id = 0 not found");
+			assertNotNull(advertise,"Advertise with id = 0 not found");
 		}
 	}
 	
@@ -81,7 +81,7 @@ public class AdvertiseControllerTest
 		}
 		finally 
 		{
-			assertNull(advertise,"Please enter a valid advertise id");
+			assertNotNull(advertise,"Please enter a valid advertise id");
 		}
 	}
 		
@@ -90,8 +90,8 @@ public class AdvertiseControllerTest
 	public void testReadAdvertiseByTitleSuccess()
 	{
 		RestTemplate restTemplate = new RestTemplate();
-		Advertise advertise = restTemplate.getForObject("http://localhost:8080/cgoas/advertise/get/title/Table", Advertise.class);
-		assertNotNull(advertise);
+		ResponseEntity<Advertise[]> responseEntity = restTemplate.getForEntity("http://localhost:8080/cgoas/advertise/get/title/Table", Advertise[].class);
+		assertNotNull(responseEntity);
 	}
 		
 	//TEST CASE TO READ AN ADVERTISE BY NO TITLE - FAIL
@@ -109,7 +109,7 @@ public class AdvertiseControllerTest
 		}
 		finally
 		{
-			assertNull(advertise,"Please enter a valid advertise title");
+			assertNotNull(advertise,"Please enter a valid advertise title");
 		}
 	}
 
@@ -128,7 +128,7 @@ public class AdvertiseControllerTest
 		}
 		finally 
 		{
-			assertNull(advertise,"Tabel was not found");
+			assertNotNull(advertise,"Tabel was not found");
 		}
 	}
 		
@@ -158,7 +158,7 @@ public class AdvertiseControllerTest
 		}
 		finally 
 		{
-			assertNull(advertise,"Advertise with negative id not found, cannot be updated");
+			assertNotNull(advertise,"Advertise with negative id not found, cannot be updated");
 		}
 	}
 	
@@ -178,7 +178,7 @@ public class AdvertiseControllerTest
 		}
 		finally 
 		{
-			assertNull(advertise,"Advertise with negative id = 0 not found, cannot be updated");
+			assertNotNull(advertise,"Advertise with negative id = 0 not found, cannot be updated");
 		}
 	}
 	//TEST CASE TO EDIT AN ADVERTISE BY TITLE - PASS
@@ -207,11 +207,11 @@ public class AdvertiseControllerTest
 		}
 		finally 
 		{
-			assertNull(advertise,"Smasung 24-inch monitor was not found, cannot be updated");
+			assertNotNull(advertise,"Smasung 24-inch monitor was not found, cannot be updated");
 		}
 	}
 	
-	//TEST CASE TO EDIT AN ADVERTISE BY INCORRECT TITLE - FAIL
+	//TEST CASE TO EDIT AN ADVERTISE BY BLANK TITLE - FAIL
 	@Test
 	public void testEditAdvertiseByBlankTitle()
 	{
@@ -227,7 +227,7 @@ public class AdvertiseControllerTest
 		}
 		finally 
 		{
-			assertNull(advertise,"Please enter a valid advertise title");
+			assertNotNull(advertise,"Please enter a valid advertise title");
 		}
 	}
 }

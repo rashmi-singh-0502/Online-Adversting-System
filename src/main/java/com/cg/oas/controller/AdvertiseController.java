@@ -78,27 +78,27 @@ public class AdvertiseController
 	}
 	
 	//CONTROLLER TO READ ADVERTISE BY TITLE
-//	@ApiOperation(value="Returns advertisement using advertise title")
-//	@ApiResponses(value= {
-//			@ApiResponse(code=201,message="Advertisement of such title returned"),
-//			@ApiResponse(code=404,message="No such advertise found"),
-//	})
-//	@GetMapping(value="/advertise/get/title/{title}", produces=MediaType.APPLICATION_JSON_VALUE)
-//	public List<Advertise> getAdvertiseByName(@PathVariable("title") String title) 
-//			throws AdvertiseNotFoundException {
-//		return advertiseService.getAdvertiseByTitle(title);
-//	}
-	
 	@ApiOperation(value="Returns advertisement using advertise title")
 	@ApiResponses(value= {
 			@ApiResponse(code=201,message="Advertisement of such title returned"),
 			@ApiResponse(code=404,message="No such advertise found"),
 	})
 	@GetMapping(value="/advertise/get/title/{title}", produces=MediaType.APPLICATION_JSON_VALUE)
-	public Advertise getAdvertiseByName(@PathVariable("title") String title) 
+	public List<Advertise> getAdvertiseByName(@PathVariable("title") String title) 
 			throws AdvertiseNotFoundException {
 		return advertiseService.getAdvertiseByTitle(title);
 	}
+	
+//	@ApiOperation(value="Returns advertisement using advertise title")
+//	@ApiResponses(value= {
+//			@ApiResponse(code=201,message="Advertisement of such title returned"),
+//			@ApiResponse(code=404,message="No such advertise found"),
+//	})
+//	@GetMapping(value="/advertise/get/title/{title}", produces=MediaType.APPLICATION_JSON_VALUE)
+//	public Advertise getAdvertiseByName(@PathVariable("title") String title) 
+//			throws AdvertiseNotFoundException {
+//		return advertiseService.getAdvertiseByTitle(title);
+//	}
 	
 	//CONTROLLER TO EDIT ADVERTISE BY TITLE
 	@ApiOperation(value="Returns newly edited advertisement using advertise title")

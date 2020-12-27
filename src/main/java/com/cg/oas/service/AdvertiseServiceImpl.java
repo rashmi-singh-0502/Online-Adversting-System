@@ -55,39 +55,39 @@ public class AdvertiseServiceImpl implements AdvertiseService {
 	}
 	
 	//FUNCTION TO READ ADVERTISE BY TITLE
-	@Override
-	public Advertise getAdvertiseByTitle(String title) throws AdvertiseNotFoundException {
-		Optional<AdvertiseEntity> opAdvertiseEntity = advertiseRepo.findByTitleRead(title);
-		if(opAdvertiseEntity.isPresent()) {
-			AdvertiseEntity advertiseEntity = opAdvertiseEntity.get();
-			Category category = new Category(advertiseEntity.getCategory().getCategory_id(),advertiseEntity.getCategory().getCategory_name(), advertiseEntity.getCategory().getCategory_desc());
-			return new Advertise(advertiseEntity.getAd_id(), advertiseEntity.getTitle(),advertiseEntity.getDescription(),advertiseEntity.getPrice(),category);
-		}
-		else {
-			throw new AdvertiseNotFoundException("title: " + title);
-			//return null;
-		}
-	}
-	
-	//FUNCTION TO READ ADVERTISE BY TITLE
 //	@Override
-//	public List<Advertise> getAdvertiseByTitle(String title) throws AdvertiseNotFoundException {
-//		List<AdvertiseEntity> advertiseEntityList = advertiseRepo.findByTitleRead(title);
-//		if(!advertiseEntityList.isEmpty())
-//		{
-//		List<Advertise> advertises = new ArrayList<Advertise>();
-//		for(AdvertiseEntity advertiseEntity:advertiseEntityList)
-//		{
+//	public Advertise getAdvertiseByTitle(String title) throws AdvertiseNotFoundException {
+//		Optional<AdvertiseEntity> opAdvertiseEntity = advertiseRepo.findByTitleRead(title);
+//		if(opAdvertiseEntity.isPresent()) {
+//			AdvertiseEntity advertiseEntity = opAdvertiseEntity.get();
 //			Category category = new Category(advertiseEntity.getCategory().getCategory_id(),advertiseEntity.getCategory().getCategory_name(), advertiseEntity.getCategory().getCategory_desc());
-//			advertises.add(new Advertise(advertiseEntity.getAd_id(), advertiseEntity.getTitle(),advertiseEntity.getDescription(),advertiseEntity.getPrice(),category));
+//			return new Advertise(advertiseEntity.getAd_id(), advertiseEntity.getTitle(),advertiseEntity.getDescription(),advertiseEntity.getPrice(),category);
 //		}
-//		return advertises;
-//		}
-//		else
-//		{
-//			throw new AdvertiseNotFoundException("Advertise title:"+title);
+//		else {
+//			throw new AdvertiseNotFoundException("title: " + title);
+//			//return null;
 //		}
 //	}
+	
+	//FUNCTION TO READ ADVERTISE BY TITLE
+	@Override
+	public List<Advertise> getAdvertiseByTitle(String title) throws AdvertiseNotFoundException {
+		List<AdvertiseEntity> advertiseEntityList = advertiseRepo.findByTitleRead(title);
+		if(!advertiseEntityList.isEmpty())
+		{
+		List<Advertise> advertises = new ArrayList<Advertise>();
+		for(AdvertiseEntity advertiseEntity:advertiseEntityList)
+		{
+			Category category = new Category(advertiseEntity.getCategory().getCategory_id(),advertiseEntity.getCategory().getCategory_name(), advertiseEntity.getCategory().getCategory_desc());
+			advertises.add(new Advertise(advertiseEntity.getAd_id(), advertiseEntity.getTitle(),advertiseEntity.getDescription(),advertiseEntity.getPrice(),category));
+		}
+		return advertises;
+		}
+		else
+		{
+			throw new AdvertiseNotFoundException("Advertise title:"+title);
+		}
+	}
 	
 	//FUNCTION TO EDIT ADVERTISE BY ID
 	@Override
