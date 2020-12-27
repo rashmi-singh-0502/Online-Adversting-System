@@ -7,8 +7,10 @@ import com.cg.oas.exception.AdvertiseNotFoundException;
 
 public interface AdvertiseService 
 {
-	public Advertise createAdvertise(Advertise Advertise);
 	public List<Advertise> getAllAdvertises() throws AdvertiseNotFoundException;
 	public Advertise getAdvertiseById(long ad_id) throws AdvertiseNotFoundException;
-	public Advertise editAdvertise(long ad_id,Advertise Advertise) throws AdvertiseNotFoundException;
+	public Advertise editAdvertiseById(long ad_id,Advertise Advertise) throws AdvertiseNotFoundException;
+	//public List<Advertise> getAdvertiseByTitle(String title) throws AdvertiseNotFoundException;
+	public Advertise editAdvertiseByTitle(String title, Advertise advertise) throws AdvertiseNotFoundException;
+	public Advertise getAdvertiseByTitle(String title) throws AdvertiseNotFoundException;
 }

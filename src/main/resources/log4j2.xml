@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Configuration status="INFO" monitorInterval="30">
-  
+<Configuration xmlns="http://logging.apache.org/log4j/2.0/config">
     <Properties>
-        <Property name="LOG_PATTERN">%d{yyyy-MM-dd'T'HH:mm:ss.SSSZ} %p %m%n</Property>
-        <Property name="APP_LOG_ROOT">c:/temp</Property>
+    	<Property name="LOG_PATTERN">%d{yyyy-MM-dd'T'HH:mm:ss.SSSZ} %p %m%n</Property>
+        <Property name="basePath">../Online-Advertisement-System-Sprint2/logs</Property>
     </Properties>
   
     <Appenders>
@@ -12,38 +11,42 @@
             <PatternLayout pattern="${LOG_PATTERN}"/>
         </Console>
           
-        <RollingFile name="debugLog" fileName="${sys:APP_LOG_ROOT}/debug.log"
-            filePattern="${sys:APP_LOG_ROOT}/debug-%d{yyyy-MM-dd}-%i.log">
+        <RollingFile name="infoLog" fileName="${sys:basePath}/info.log"
+            filePattern="${sys:basePath}/info-%d{yyyy-MM-dd}-%i.log">
+            <LevelRangeFilter minLevel="INFO" maxLevel="INFO" onMatch="ACCEPT" onMismatch="DENY"/>
             <PatternLayout pattern="${LOG_PATTERN}"/>
             <Policies>
-                <SizeBasedTriggeringPolicy size="19500KB" />
+                <SizeBasedTriggeringPolicy size="10MB" />
             </Policies>
             <DefaultRolloverStrategy max="10"/>
         </RollingFile>
           
-        <RollingFile name="errorLog" fileName="${sys:APP_LOG_ROOT}/error.log"
-            filePattern="${sys:APP_LOG_ROOT}/error-%d{yyyy-MM-dd}-%i.log">
+        <RollingFile name="errorLog" fileName="${sys:basePath}/error.log"
+            filePattern="${sys:basePath}/error-%d{yyyy-MM-dd}-%i.log">
+            <LevelRangeFilter minLevel="ERROR" maxLevel="ERROR" onMatch="ACCEPT" onMismatch="DENY"/>
             <PatternLayout pattern="${LOG_PATTERN}"/>
             <Policies>
-                <SizeBasedTriggeringPolicy size="19500KB" />
+                <SizeBasedTriggeringPolicy size="10MB" />
             </Policies>
             <DefaultRolloverStrategy max="10"/>
         </RollingFile>
           
-        <RollingFile name="infoLog" fileName="${sys:APP_LOG_ROOT}/info.log"
-            filePattern="${sys:APP_LOG_ROOT}/info-%d{yyyy-MM-dd}-%i.log">
+        <RollingFile name="warnLog" fileName="${sys:basePath}/warn.log"
+            filePattern="${sys:basePath}/warn-%d{yyyy-MM-dd}-%i.log">
+            <LevelRangeFilter minLevel="WARN" maxLevel="WARN" onMatch="ACCEPT" onMismatch="DENY"/>
             <PatternLayout pattern="${LOG_PATTERN}"/>
             <Policies>
-                <SizeBasedTriggeringPolicy size="19500KB" />
+                <SizeBasedTriggeringPolicy size="10MB" />
             </Policies>
             <DefaultRolloverStrategy max="10"/>
         </RollingFile>
          
-        <RollingFile name="warnLog" fileName="${sys:APP_LOG_ROOT}/warn.log"
-            filePattern="${sys:APP_LOG_ROOT}/warn-%d{yyyy-MM-dd}-%i.log">
+        <RollingFile name="debugLog" fileName="${sys:basePath}/debug.log"
+            filePattern="${sys:basePath}/debug-%d{yyyy-MM-dd}-%i.log">
+            <LevelRangeFilter minLevel="DEBUG" maxLevel="DEBUG" onMatch="ACCEPT" onMismatch="DENY"/>
             <PatternLayout pattern="${LOG_PATTERN}"/>
             <Policies>
-                <SizeBasedTriggeringPolicy size="19500KB" />
+                <SizeBasedTriggeringPolicy size="10MB" />
             </Policies>
             <DefaultRolloverStrategy max="10"/>
         </RollingFile>
@@ -52,34 +55,38 @@
   
     <Loggers>
       
-        <Logger name="com.cg.oas" additivity="false" level="debug">
-            <AppenderRef ref="debugLog" />
+     <!--   <Logger name="com.cg.travelagency" additivity="false" level="INFO">
+            <AppenderRef ref="infoLog" />
             <AppenderRef ref="console"  />
         </Logger>
          
-        <Logger name="com.cg.oas" additivity="false" level="info">
-            <AppenderRef ref="infoLog" />
+        <Logger name="com.cg.travelagency" additivity="false" level="DEBUG">
+            <AppenderRef ref="debugLog" />
             <AppenderRef ref="console" />
         </Logger>
           
-        <Logger name="com.cg.oas" additivity="false" level="error">
+        <Logger name="com.cg.travelagency" additivity="false" level="ERROR">
             <AppenderRef ref="errorLog" />
             <AppenderRef ref="console"/>
         </Logger>
          
-        <Logger name="com.cg.oas" additivity="false" level="warn">
+        <Logger name="com.cg.travelagency" additivity="false" level="WARN">
             <AppenderRef ref="warnLog" />
             <AppenderRef ref="console"/>
         </Logger>
                   
-        <Root level="info">
-    		<AppenderRef ref="console"/>
-    		<!-- <AppenderRef ref="infoLog"/>
-    		<AppenderRef ref="debugLog"/>
-    		<AppenderRef ref="warnLog"/>
-    		<AppenderRef ref="errorLog"/> -->
-    		
-		</Root>
+        <Root level="INFO">
+            <AppenderRef ref="console"/>
+        </Root>-->
+        
+        <Root level="debug">
+        <AppenderRef ref="console"/>	
+            <AppenderRef ref="STDOUT" />
+            <AppenderRef ref="infoLog" />
+            <AppenderRef ref="warnLog" />
+            <AppenderRef ref="errorLog" />
+            <AppenderRef ref="debugLog" />
+        </Root>
   
     </Loggers>
   
