@@ -32,9 +32,9 @@ public class SwaggerConfig
 				"This is Online Advertisement System", 
 				"1.0", 
 				"public terms of service", 
-				new Contact("Rashmi Singh","http://capgemini.com","rashmi.a.singh@capgemini.com"), 
-				"GPL", 
-				"http://gpl.info");
+				new Contact("OAS Team","http://capgemini.com","oasteam@capgemini.com"), 
+				null, 
+				null);
 		return apiInfo;
 	}
 }

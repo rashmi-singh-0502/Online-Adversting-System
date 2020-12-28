@@ -4,18 +4,22 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import com.cg.oas.controller.AdvertiseController;
 import com.cg.oas.dto.Advertise;
 import com.cg.oas.dto.Category;
 import com.cg.oas.entity.AdvertiseEntity;
 import com.cg.oas.exception.AdvertiseNotFoundException;
 import com.cg.oas.repo.AdvertiseRepo;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class AdvertiseServiceImpl implements AdvertiseService {
 
-	//private static final Logger logger = LoggerFactory.getLogger(AdvertiseServiceImpl.class);
+	Logger logger = LogManager.getLogger(AdvertiseServiceImpl.class);
 	@Autowired
 	private AdvertiseRepo advertiseRepo;
 	
@@ -30,10 +34,12 @@ public class AdvertiseServiceImpl implements AdvertiseService {
 			Category category = new Category(advertiseEntity.getCategory().getCategory_id(), advertiseEntity.getCategory().getName(), advertiseEntity.getCategory().getCategory_desc());
 			advertises.add(new Advertise(advertiseEntity.getAd_id(), advertiseEntity.getTitle(),advertiseEntity.getDescription(),advertiseEntity.getPrice(),category));
 		}
+		logger.info("Returning list of advertisements :"+advertises);
 		return advertises;
 	}
 		else
 		{
+			logger.error("List of advertisements not found");
 			throw new AdvertiseNotFoundException("No record found");
 		}
 	}
@@ -46,9 +52,11 @@ public class AdvertiseServiceImpl implements AdvertiseService {
 		if(opAdvertiseEntity.isPresent()) {
 			AdvertiseEntity advertiseEntity = opAdvertiseEntity.get();
 			Category category = new Category(advertiseEntity.getCategory().getCategory_id(),advertiseEntity.getCategory().getName(), advertiseEntity.getCategory().getCategory_desc());
+			logger.info("Returning advertisement with id : "+ad_id);
 			return new Advertise(advertiseEntity.getAd_id(), advertiseEntity.getTitle(),advertiseEntity.getDescription(),advertiseEntity.getPrice(),category);
 		}
 		else {
+			logger.error("Advertisement with id : "+ad_id+" not found");
 			throw new AdvertiseNotFoundException("ad_id: " + ad_id);
 			//return null;
 		}
@@ -67,10 +75,12 @@ public class AdvertiseServiceImpl implements AdvertiseService {
 			Category category = new Category(advertiseEntity.getCategory().getCategory_id(),advertiseEntity.getCategory().getName(), advertiseEntity.getCategory().getCategory_desc());
 			advertises.add(new Advertise(advertiseEntity.getAd_id(), advertiseEntity.getTitle(),advertiseEntity.getDescription(),advertiseEntity.getPrice(),category));
 		}
+		logger.info("Returning advertisement with title : "+title);
 		return advertises;
 		}
 		else
 		{
+			logger.error("Advertisement with title : "+title+" not found");
 			throw new AdvertiseNotFoundException("Advertise title:"+title);
 		}
 	}
@@ -86,9 +96,11 @@ public class AdvertiseServiceImpl implements AdvertiseService {
 			advertiseEntity.setPrice(advertise.getPrice());
 			advertiseRepo.save(advertiseEntity);
 			Category category = new Category(advertiseEntity.getCategory().getCategory_id(),advertiseEntity.getCategory().getName(), advertiseEntity.getCategory().getCategory_desc());
+			logger.info("Advertisement with id : "+ad_id+" edited successfully");
 			return new Advertise(advertiseEntity.getAd_id(), advertiseEntity.getTitle(),advertiseEntity.getDescription(),advertiseEntity.getPrice(),category);
 		}
 		else {
+			logger.error("Advertisement with id : "+ad_id+" not found, hence cannot be edited");
 			throw new AdvertiseNotFoundException("ad_id: " + ad_id);
 		}
 	}
@@ -104,9 +116,11 @@ public class AdvertiseServiceImpl implements AdvertiseService {
 			advertiseEntity.setPrice(advertise.getPrice());
 			advertiseRepo.save(advertiseEntity);
 			Category category = new Category(advertiseEntity.getCategory().getCategory_id(),advertiseEntity.getCategory().getName(), advertiseEntity.getCategory().getCategory_desc());
+			logger.info("Advertisement with title : "+title+" edited successfully");
 			return new Advertise(advertiseEntity.getAd_id(), advertiseEntity.getTitle(),advertiseEntity.getDescription(),advertiseEntity.getPrice(),category);
 		}
 		else {
+			logger.error("Advertisement with title : "+title+" not found, hence cannot be edited");
 			throw new AdvertiseNotFoundException("title: " + title);
 		}
 	}

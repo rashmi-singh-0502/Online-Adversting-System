@@ -35,7 +35,7 @@ import com.cg.oas.dto.Advertise;
 @Api(value="Online Advertisement System related REST APIs")
 public class AdvertiseController 
 {
-	//Logger logger = LogManager.getLogger(AdvertiseController.class);
+	Logger logger = LogManager.getLogger(AdvertiseController.class);
 	@Autowired
 	private AdvertiseService advertiseService;
 	
@@ -47,10 +47,7 @@ public class AdvertiseController
 	})
 	@GetMapping(value="/advertise/getall", produces=MediaType.APPLICATION_JSON_VALUE)
 	public List<Advertise> getAllAdvertises() throws AdvertiseNotFoundException{
-//	logger.info("Getting list of advertisements");
-//	logger.error("Advertise not found");
-//	logger.debug("Test");
-//	logger.warn("Test 2");
+		logger.info("List of advertisements returned successfully");
 		return advertiseService.getAllAdvertises();
 	}
 	
@@ -63,6 +60,7 @@ public class AdvertiseController
 	@GetMapping(value="/advertise/get/id/{id}", produces=MediaType.APPLICATION_JSON_VALUE)
 	public Advertise getAdvertiseById(@PathVariable("id") String ad_id) 
 			throws AdvertiseNotFoundException {
+		logger.info("Advertise returned successfully");
 		return advertiseService.getAdvertiseById(Long.parseLong(ad_id));
 	}
 	
@@ -75,6 +73,7 @@ public class AdvertiseController
 	@PutMapping(value="/advertise/update/id/{id}", consumes=MediaType.APPLICATION_JSON_VALUE, produces=MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Advertise> editAdvertise(@PathVariable("id") String ad_id,@Valid @RequestBody Advertise advertise) throws AdvertiseNotFoundException
 	{
+		logger.info("Advertise edited successfully");
 		return new ResponseEntity<Advertise>(advertiseService.editAdvertiseById(Long.parseLong(ad_id), advertise),HttpStatus.OK);
 	}
 	
@@ -87,6 +86,7 @@ public class AdvertiseController
 	@GetMapping(value="/advertise/get/title/{title}", produces=MediaType.APPLICATION_JSON_VALUE)
 	public List<Advertise> getAdvertiseByName(@PathVariable("title") String title) 
 			throws AdvertiseNotFoundException {
+		logger.info("Advertise returned successfully");
 		return advertiseService.getAdvertiseByTitle(title);
 	}
 	
@@ -99,6 +99,7 @@ public class AdvertiseController
 	@PutMapping(value="/advertise/update/title/{title}", consumes=MediaType.APPLICATION_JSON_VALUE, produces=MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Advertise> editAdvertiseByTitle(@PathVariable("title") String title,@Valid @RequestBody Advertise advertise) throws AdvertiseNotFoundException
 	{
+		logger.info("Advertise edited successfully");
 		return new ResponseEntity<Advertise>(advertiseService.editAdvertiseByTitle(title, advertise),HttpStatus.OK);
 	}
 	
