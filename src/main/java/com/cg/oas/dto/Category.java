@@ -8,65 +8,74 @@ import io.swagger.annotations.ApiModelProperty;
 
 public class Category 
 	{
-		@Min(value=1)
-		@ApiModelProperty(value="Category ID")
-			private long category_id;
-		
-		@NotBlank
-		@NotNull
-		@ApiModelProperty(value="Category Name")
-			private String category_name;
-		
-		@NotBlank
-		@NotNull
-		@ApiModelProperty(value="Category Description")
+	        /*
+	         *---------------- ID SHOULD BE GREATER OR EQUAL TO 1-------------
+	         */
+		    @Min(value=1)
+		    @ApiModelProperty(value="Category Id")
+			private int category_id;
+		    
+		    /*
+		     * --------------NAME SHOULD NOT BE NULL OR BLANK--------------
+		     */
+		    @NotBlank
+		    @NotNull
+		    @ApiModelProperty(value=" Category Name")
+			private String name;
+		    
+		    /*
+		     * --------------DESCRIPTION SHOULD NOT BE NULL OR BLANK--------------
+		     */
+		    @NotNull
+		    @NotBlank
+		    @ApiModelProperty(value="Category Description")
 			private String category_desc;
+		  
 			/* 
-			 * Creating constructors
+			 * ------------Creating constructors-------------
 			 * 
 			 */
 			
-			public Category(long category_id, String category_name, String category_desc) 
+			public Category(int category_id, String name, String category_desc) 
 			{
 				super();
 				this.category_id = category_id;
-				this.category_name = category_name;
+				this.name = name;
 				this.category_desc = category_desc;
 			}
-			public Category( String category_name, String category_desc) 
+			public Category( String name, String category_desc) 
 			{
 				super();
 				
-				this.category_name = category_name;
+				this.name = name;
 				this.category_desc = category_desc;
 			}
+			
 			
 			public Category()
 			{
 				super();
 			}
-			public Category(String category_name) {
-				this.category_name = category_name;
-			}
+			
 			/*
-			 * Creating Getters and Setter method
+			 * ---------------Creating Getters and Setter method----------------
 			 * 
 			 */
-			public long getCategory_id() 
+			public int getCategory_id() 
 			{
 				return category_id;
 			}
-			public void setCategory_id(long category_id) 
+			public void setCategory_id(int category_id) 
 			{
 				this.category_id = category_id;
 			}
-			public String getCategory_name()
+			public String getName()
 			{
-				return category_name;
+				return name;
 			}
-			public void setCategory_name(String category_name)
+			public void setName(String name)
 			{
-				this.category_name = category_name;
+				this.name = name;
 			}
 			public String getCategory_desc() 
 			{
@@ -76,15 +85,15 @@ public class Category
 			{
 				this.category_desc = category_desc;
 			}
+			
 			/*
-			 * Creating toString function
+			 *---------------------Creating toString function--------------------
 			 * 
 			 */
 			@Override
 			public String toString()
 			{
-				return "Category [category_id=" + category_id + ", category_name=" + category_name + ", category_desc="
+				return "Category [category_id=" + category_id + ", name=" + name + ", category_desc="
 						+ category_desc + "]";
 			}
-			
 		}

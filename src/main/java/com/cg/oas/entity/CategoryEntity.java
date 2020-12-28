@@ -1,89 +1,78 @@
 package com.cg.oas.entity;
 
-
-import java.util.Set;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-
-//Declare the class as entity or table
+//-------------Declare the class as entity or table----------------
 @Entity 
-// Declare table name 	
-@Table(name="category", schema = "public")                                                                
+// ------------Declare table name----------------------- 	
+@Table(name="category", schema = "public")  
+
 	public class CategoryEntity
 	{
 		@Id
-		@GeneratedValue     //auto-generating value for id
+	  //-------------auto-generating value for id--------------
+		@GeneratedValue 
 		@Column(name="category_id")
-		private long category_id;
+		private int category_id;
 
-		@Column(name="category_name")
-		private String category_name;
+		@Column(name="name")
+		private String name;
 		
 		@Column(name="category_desc")
 		private String category_desc;
 		
-		@OneToMany(cascade={CascadeType.ALL}, 
-				fetch=FetchType.EAGER, mappedBy = "category")
-		private Set<AdvertiseEntity> advertises;
 		/*
-		*Creating constructors
+		*-------------------------Creating constructors-------------------
 		*
 		*/
-		public CategoryEntity(long category_id,String category_name, String category_desc,Set<AdvertiseEntity> advertises)
-		{
-			super();
-			this.category_id=category_id;
-			this.category_name = category_name;
-			this.category_desc = category_desc;
-			this.advertises = advertises;
-			
-		}
-
-		public CategoryEntity(String category_name, String category_desc,Set<AdvertiseEntity> advertises)
-		{
-			super();
-			this.category_name = category_name;
-			this.category_desc = category_desc;
-			this.advertises = advertises;
-		}
-
-		
 		public CategoryEntity() 
 		{
 			super();
 		}
+		public CategoryEntity(int category_id,String name, String category_desc)
+		{
+			super();
+			this.category_id=category_id;
+			this.name = name;
+			this.category_desc = category_desc;
+			
+		}
 
+		public CategoryEntity( String name, String category_desc)
+		{
+			super();
+			this.name = name;
+			this.category_desc = category_desc;
+		}
+		
+		
 		/*
-		 * creating getters and setters
+		 * ---------------------------creating getters and setters---------------------
 		 */	
 
 
-		public long getCategory_id() 
+		public int getCategory_id() 
 		{
 			return category_id;
 		}
 
-		public void setCategory_id(long category_id)
+		public void setCategory_id(int category_id)
 		{
 			this.category_id = category_id;
 		}
 
-		public String getCategory_name() 
+		public String getName() 
 		{
-			return category_name;
+			return name;
 		}
 
-		public void setCategory_name(String category_name)
+		public void setName(String name)
 		{
-			this.category_name = category_name;
+			this.name = name;
 		}
 
 		public String getCategory_desc() 
@@ -95,22 +84,16 @@ import javax.persistence.Table;
 		{
 			this.category_desc = category_desc;
 		}
-		public Set<AdvertiseEntity> getAdvertises() {
-			return advertises;
-		}
-
-		public void setAdvertises(Set<AdvertiseEntity> advertises) {
-			this.advertises = advertises;
-		}
-       /*
-        * 
-        * Creating toString method
+	
+       /* 
+        * -----------------------------Creating toString method---------------------
         */
-
 		@Override
-		public String toString() {
-			return "CategoryEntity [category_id=" + category_id + ", category_name=" + category_name
-					+ ", category_desc=" + category_desc + ", advertises=" + advertises + "]";
+		public String toString() 
+		{
+			return "CategoryEntity [category_id=" + category_id + ", name=" + name
+					+ ", category_desc=" + category_desc + "]";
 		}
+		
 	}
 

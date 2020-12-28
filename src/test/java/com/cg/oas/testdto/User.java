@@ -1,4 +1,4 @@
-package com.cg.oas.dto;
+package com.cg.oas.testdto;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;

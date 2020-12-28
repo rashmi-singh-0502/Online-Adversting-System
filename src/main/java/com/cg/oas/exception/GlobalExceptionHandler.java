@@ -30,6 +30,38 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler{
 		
 	}
 	
+	
+	@ExceptionHandler(value= {UserNotFoundException.class})
+	public ResponseEntity<ErrorMessage> handleUserNotFoundException(UserNotFoundException ex)
+	{
+		String error="User is not Found";
+		ErrorMessage errorMessage=new ErrorMessage(HttpStatus.BAD_REQUEST,ex.getLocalizedMessage(),error);
+		return new ResponseEntity<ErrorMessage>(errorMessage,new HttpHeaders(),errorMessage.getStatus());
+	}
+	@ExceptionHandler(value = {CategoryNotFoundException.class})
+	public ResponseEntity<ErrorMessage> handleCategoryNotFoundException(
+			CategoryNotFoundException ex) {
+		String error = "category is not found";
+
+		ErrorMessage errorMessage = 
+	      new ErrorMessage(HttpStatus.BAD_REQUEST, ex.getLocalizedMessage(), error);
+	    return new ResponseEntity<ErrorMessage>(
+	    		errorMessage, new HttpHeaders(), errorMessage.getStatus());
+	}
+	
+	
+	@ExceptionHandler(value = {RecordNotFoundException.class})
+	public ResponseEntity<ErrorMessage> handleNullValueFoundException(
+			RecordNotFoundException ex) {
+		String error = "Record not found";
+
+		ErrorMessage errorMessage = 
+	      new ErrorMessage(HttpStatus.BAD_REQUEST, ex.getLocalizedMessage(), error);
+	    return new ResponseEntity<ErrorMessage>(
+	    		errorMessage, new HttpHeaders(), errorMessage.getStatus());
+		
+	}
+	
 	@Override
 	public ResponseEntity<Object> handleMethodArgumentNotValid(
 			MethodArgumentNotValidException ex,

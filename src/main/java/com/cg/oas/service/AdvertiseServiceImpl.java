@@ -27,7 +27,7 @@ public class AdvertiseServiceImpl implements AdvertiseService {
 		{
 		List<Advertise> advertises = new ArrayList<Advertise>();
 		for(AdvertiseEntity advertiseEntity: advertiseEntityList) {
-			Category category = new Category(advertiseEntity.getCategory().getCategory_id(), advertiseEntity.getCategory().getCategory_name(), advertiseEntity.getCategory().getCategory_desc());
+			Category category = new Category(advertiseEntity.getCategory().getCategory_id(), advertiseEntity.getCategory().getName(), advertiseEntity.getCategory().getCategory_desc());
 			advertises.add(new Advertise(advertiseEntity.getAd_id(), advertiseEntity.getTitle(),advertiseEntity.getDescription(),advertiseEntity.getPrice(),category));
 		}
 		return advertises;
@@ -45,7 +45,7 @@ public class AdvertiseServiceImpl implements AdvertiseService {
 		Optional<AdvertiseEntity> opAdvertiseEntity = advertiseRepo.findById(ad_id);
 		if(opAdvertiseEntity.isPresent()) {
 			AdvertiseEntity advertiseEntity = opAdvertiseEntity.get();
-			Category category = new Category(advertiseEntity.getCategory().getCategory_id(),advertiseEntity.getCategory().getCategory_name(), advertiseEntity.getCategory().getCategory_desc());
+			Category category = new Category(advertiseEntity.getCategory().getCategory_id(),advertiseEntity.getCategory().getName(), advertiseEntity.getCategory().getCategory_desc());
 			return new Advertise(advertiseEntity.getAd_id(), advertiseEntity.getTitle(),advertiseEntity.getDescription(),advertiseEntity.getPrice(),category);
 		}
 		else {
@@ -78,7 +78,7 @@ public class AdvertiseServiceImpl implements AdvertiseService {
 		List<Advertise> advertises = new ArrayList<Advertise>();
 		for(AdvertiseEntity advertiseEntity:advertiseEntityList)
 		{
-			Category category = new Category(advertiseEntity.getCategory().getCategory_id(),advertiseEntity.getCategory().getCategory_name(), advertiseEntity.getCategory().getCategory_desc());
+			Category category = new Category(advertiseEntity.getCategory().getCategory_id(),advertiseEntity.getCategory().getName(), advertiseEntity.getCategory().getCategory_desc());
 			advertises.add(new Advertise(advertiseEntity.getAd_id(), advertiseEntity.getTitle(),advertiseEntity.getDescription(),advertiseEntity.getPrice(),category));
 		}
 		return advertises;
@@ -99,7 +99,7 @@ public class AdvertiseServiceImpl implements AdvertiseService {
 			advertiseEntity.setDescription(advertise.getDescription());
 			advertiseEntity.setPrice(advertise.getPrice());
 			advertiseRepo.save(advertiseEntity);
-			Category category = new Category(advertiseEntity.getCategory().getCategory_id(),advertiseEntity.getCategory().getCategory_name(), advertiseEntity.getCategory().getCategory_desc());
+			Category category = new Category(advertiseEntity.getCategory().getCategory_id(),advertiseEntity.getCategory().getName(), advertiseEntity.getCategory().getCategory_desc());
 			return new Advertise(advertiseEntity.getAd_id(), advertiseEntity.getTitle(),advertiseEntity.getDescription(),advertiseEntity.getPrice(),category);
 		}
 		else {
@@ -117,7 +117,7 @@ public class AdvertiseServiceImpl implements AdvertiseService {
 			advertiseEntity.setDescription(advertise.getDescription());
 			advertiseEntity.setPrice(advertise.getPrice());
 			advertiseRepo.save(advertiseEntity);
-			Category category = new Category(advertiseEntity.getCategory().getCategory_id(),advertiseEntity.getCategory().getCategory_name(), advertiseEntity.getCategory().getCategory_desc());
+			Category category = new Category(advertiseEntity.getCategory().getCategory_id(),advertiseEntity.getCategory().getName(), advertiseEntity.getCategory().getCategory_desc());
 			return new Advertise(advertiseEntity.getAd_id(), advertiseEntity.getTitle(),advertiseEntity.getDescription(),advertiseEntity.getPrice(),category);
 		}
 		else {

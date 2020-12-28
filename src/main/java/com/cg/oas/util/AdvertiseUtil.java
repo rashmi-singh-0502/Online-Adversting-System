@@ -11,7 +11,7 @@ import com.cg.oas.entity.CategoryEntity;
 
 public class AdvertiseUtil {
 	public static Advertise convertAdvertiseEntityIntoAdvertise(AdvertiseEntity advertiseEntity) {
-		Category category = new Category(advertiseEntity.getCategory().getCategory_id(), advertiseEntity.getCategory().getCategory_name(), advertiseEntity.getCategory().getCategory_desc());
+		Category category = new Category(advertiseEntity.getCategory().getCategory_id(), advertiseEntity.getCategory().getName(), advertiseEntity.getCategory().getCategory_desc());
 		Advertise advertise = 
 				new Advertise(advertiseEntity.getAd_id(), advertiseEntity.getTitle(),advertiseEntity.getDescription(),advertiseEntity.getPrice(),category);
 		return advertise;
