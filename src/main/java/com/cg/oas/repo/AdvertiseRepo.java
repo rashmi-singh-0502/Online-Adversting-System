@@ -19,4 +19,11 @@ public interface AdvertiseRepo extends JpaRepository<AdvertiseEntity, Long>{
 
 	@Query("SELECT a FROM AdvertiseEntity a WHERE a.title = :title")
 	public Optional<AdvertiseEntity> findByTitleEdit(@Param("title")String title);
+
+
+	@Query("SELECT a FROM AdvertiseEntity a WHERE a.title = :title")
+	public void deleteByTitle(String title);
+	
+	@Query("SELECT a FROM AdvertiseEntity a WHERE a.title = :title")
+	public AdvertiseEntity findByTitledelete(String title);
 }

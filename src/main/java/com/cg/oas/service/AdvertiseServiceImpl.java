@@ -124,4 +124,25 @@ public class AdvertiseServiceImpl implements AdvertiseService {
 			throw new AdvertiseNotFoundException("title: " + title);
 		}
 	}
+	//FUNCTION TO DELETE BY ID
+	@Override
+	public String deleteById(Long ad_id) throws AdvertiseNotFoundException {
+		AdvertiseEntity advertiseEntity = advertiseRepo.findById(ad_id).orElseThrow(()-> new AdvertiseNotFoundException
+				("Sorry! No Advertise Found with the given ID "+ad_id));
+
+		advertiseRepo.deleteById(ad_id);
+		// TODO Auto-generated method stub
+		return "Advertise deleted Sucessfully";
+	}
+	//FUNCTION TO DELETE BY TITLE
+	@Override
+	
+	public String deleteAdvertiseByTitle(String title) throws AdvertiseNotFoundException {
+		
+		AdvertiseEntity advertiseEntityList = advertiseRepo.findByTitledelete(title);
+		advertiseRepo.deleteByTitle(title);
+		
+		// TODO Auto-generated method stub
+		return "Advertise deleted Sucessfully";
+	}
 }

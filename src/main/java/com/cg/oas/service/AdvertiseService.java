@@ -13,4 +13,7 @@ public interface AdvertiseService
 	public List<Advertise> getAdvertiseByTitle(String title) throws AdvertiseNotFoundException;
 	public Advertise editAdvertiseByTitle(String title, Advertise advertise) throws AdvertiseNotFoundException;
 	//public Advertise getAdvertiseByTitle(String title) throws AdvertiseNotFoundException;
+	public String deleteById(Long ad_id)throws AdvertiseNotFoundException;
+	public String deleteAdvertiseByTitle(String title)throws AdvertiseNotFoundException;
+
 }

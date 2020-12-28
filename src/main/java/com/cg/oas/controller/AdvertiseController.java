@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -111,4 +112,29 @@ public class AdvertiseController
 	{
 		return new ResponseEntity<Advertise>(advertiseService.editAdvertiseByTitle(title, advertise),HttpStatus.OK);
 	}
+	
+	//CONTROLLER TO DELETE ADVERTISE BY ID
+/*	@ApiOperation(value="Returns deleted advertise")
+	@ApiResponses(value= {
+			@ApiResponse(code=201, message=" advertise delete by Id"),
+			@ApiResponse(code=404, message="No such advertise found")
+	})*/
+	
+	@DeleteMapping(value="/advertise/advertiseid/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
+	public String deleteAdvertiseById(@PathVariable("id") Long ad_id) throws AdvertiseNotFoundException
+	{
+		return advertiseService.deleteById(ad_id);
+	}
+	//CONTROLLER TO DELETE ADVERTISE BY Title
+	/*@ApiOperation(value="Returns deleted advertise")
+	*@ApiResponses(value= {
+	*		@ApiResponse(code=201, message=" advertise delete by Id"),
+	*		@ApiResponse(code=404, message="No such advertise found")
+	})*/
+	@DeleteMapping(value="/advertise/{title}", produces=MediaType.APPLICATION_JSON_VALUE)
+	public String deleteAdvertiseByTitle(@PathVariable("title") String title) 
+			throws 	AdvertiseNotFoundException {
+		return advertiseService.deleteAdvertiseByTitle(title);
+	}
+
 }
