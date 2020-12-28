@@ -1,9 +1,14 @@
 package com.cg.oas.entity;
 
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 //-------------Declare the class as entity or table----------------
@@ -25,6 +30,9 @@ import javax.persistence.Table;
 		@Column(name="category_desc")
 		private String category_desc;
 		
+		@OneToMany(cascade={CascadeType.ALL}, 
+				fetch=FetchType.EAGER, mappedBy = "category")
+		private Set<AdvertiseEntity> advertises;
 		/*
 		*-------------------------Creating constructors-------------------
 		*
