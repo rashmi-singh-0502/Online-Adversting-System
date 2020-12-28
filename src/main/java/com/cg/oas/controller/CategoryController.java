@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -21,11 +23,11 @@ import com.cg.oas.entity.CategoryEntity;
 import com.cg.oas.exception.CategoryNotFoundException;
 import com.cg.oas.exception.RecordNotFoundException;
 import com.cg.oas.service.CategoryService;
+import com.cg.oas.service.UserServiceImpl;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
-
 import io.swagger.annotations.ApiResponses;
 
 /*
@@ -40,6 +42,8 @@ public class CategoryController
 {
 	@Autowired
 	public CategoryService categoryService;
+	private static Logger logger = LogManager.getLogger(UserServiceImpl.class.getName());
+	
 	
 	/*
 	 *------------ ADD A NEW CATEGORY--------------------------
@@ -51,8 +55,9 @@ public class CategoryController
 	})
 	
 	@PostMapping(value="/category", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<CategoryEntity> createNewCategory(@Valid @RequestBody Category category)
+	public ResponseEntity<CategoryEntity> createCategory(@Valid @RequestBody Category category)
 	{
+		logger.info("createCategory: Category Created");
 		return new ResponseEntity<CategoryEntity>(categoryService.createCategory(category), HttpStatus.OK);
 	}
 	
@@ -67,6 +72,7 @@ public class CategoryController
     @GetMapping(value="/category/search/{id}", produces= MediaType.APPLICATION_JSON_VALUE)
     public Category getCategoryById(@PathVariable("id") int category_id) throws CategoryNotFoundException
     {
+    	logger.info("getCategoryById: Category Displayed");
         return categoryService.getCategoryById(category_id);
     }
 	
@@ -82,6 +88,7 @@ public class CategoryController
 	@DeleteMapping(value="/category/{name}/delete", produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<Category> deleteCategory(@PathVariable( "name") String name) throws CategoryNotFoundException
 	{
+		logger.info("deleteCategoryById: Category deleted");
 		return categoryService.deleteCategory(name);
 	}
 	/*
@@ -97,6 +104,7 @@ public class CategoryController
 	@GetMapping(value="/category/get", produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<Category> getAllCategory() throws RecordNotFoundException
 	{
+		logger.info("getAlllCategory: Category viewed successfully");
 		return categoryService.getAllCategory();
 	}
 	/*
@@ -108,8 +116,9 @@ public class CategoryController
 			@ApiResponse(code=404,message="NO SUCH NAME EXISTS")
 	})
 	@GetMapping(value="/category/{name}", produces=MediaType.APPLICATION_JSON_VALUE)
-	public List<Category> getCategoryByName(@PathVariable("name") String name) 
-			throws CategoryNotFoundException {
+	public List<Category> getCategoryByName(@PathVariable("name") String name) throws CategoryNotFoundException 
+	{
+		logger.info("getCategoryByName: Category displayed successfully");
 		return categoryService.getCategoryByName(name);
 	}
 	

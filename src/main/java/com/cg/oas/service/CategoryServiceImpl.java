@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,7 +27,7 @@ public class CategoryServiceImpl implements CategoryService
 	 */
 	@Autowired
 	private CategoryRepo categoryRepo;
-	//private static Logger logger = LogManager.getLogger(CategoryServiceImpl.class.getName());
+	private static Logger logger = LogManager.getLogger(CategoryServiceImpl.class.getName());
 	
 	/*
 	 * -------------------------CREATING A NEW CATEGORY-----------------------
@@ -35,7 +37,7 @@ public class CategoryServiceImpl implements CategoryService
 	{
 		CategoryEntity categoryEntity = 
 				categoryRepo.save(new CategoryEntity(category.getName(), category.getCategory_desc()));
-		//logger.info("CategoryEntity:" + categoryEntity);
+		logger.info("CreateCategory: New Catgeory Created" +" "+ categoryEntity);
 		
 		return new CategoryEntity(categoryEntity.getCategory_id(), categoryEntity.getName(), categoryEntity.getCategory_desc());
 	}
@@ -50,10 +52,12 @@ public class CategoryServiceImpl implements CategoryService
 		if(opCategoryEntity.isPresent()) 
 		{
 			CategoryEntity categoryEntity = opCategoryEntity.get();
+			logger.info("getCatgeoryById: Category with category_id="+category_id+" "+"is displayed" +" "+ categoryEntity);
 			return new Category(categoryEntity.getCategory_id(), categoryEntity.getName(), categoryEntity.getCategory_desc());
 		}
 		else 
-		{
+		{   
+			logger.error("getCategoryById:Category with category_id="+ category_id+" "+ "does not exists" );
 			throw new CategoryNotFoundException("categoryid" + category_id);
 		}
 		
@@ -69,14 +73,16 @@ public class CategoryServiceImpl implements CategoryService
 		{
 			List<Category> categorys = new ArrayList<Category>();
 		    for(CategoryEntity categoryEntity: categoryEntityList)
-		    {
+		    {   
+		    	logger.info("deleteCategoryByName:Catgeory with category_name= "+name+" " +"is deleted"+" "+ categoryEntity);
 			   categorys.add(new Category(categoryEntity.getCategory_id(), categoryEntity.getName(), categoryEntity.getCategory_desc()));
 			   categoryRepo.delete(categoryEntity);
 		     }
 		    return categorys;
 		}
 		else
-		{
+		{    
+			logger.error("deleteCategoryByName: Category with category_name="+name+" "+ "does not exist");
 			throw new CategoryNotFoundException("Category_Name:" + name);	
 		}
 		
@@ -93,6 +99,7 @@ public class CategoryServiceImpl implements CategoryService
 		    List<Category> categorys = new ArrayList<Category>();
 		    for(CategoryEntity categoryEntity: categoryEntityList) 
 		    {
+		    	logger.info("getAllCategory: Displaying all the existing categories" +" "+ categoryEntity);
 			   categorys.add(new Category(categoryEntity.getCategory_id(), categoryEntity.getName(), categoryEntity.getCategory_desc()));
 		     }
 	
@@ -100,6 +107,7 @@ public class CategoryServiceImpl implements CategoryService
 	      }
 	    else
 	     {
+	    	logger.error("getAllCategory: Category List Is empty!!");
 		   throw new RecordNotFoundException("NO RECORD FOUND");
 	     }
 	}
@@ -114,12 +122,14 @@ public class CategoryServiceImpl implements CategoryService
 		  List<Category> categorys = new ArrayList<Category>();
 		  for(CategoryEntity categoryEntity: categoryEntityList) 
 		  {
+			  logger.info("getCategoryByName:Category with category_name="+ category_name+" " +"is displayed"+" "+ categoryEntity);
 			categorys.add(new Category(categoryEntity.getCategory_id(), categoryEntity.getName(), categoryEntity.getCategory_desc()));
 		  }
 		return categorys;
 	    }
 	   else
 	   {
+		   logger.error("getCategoryByName: Category with Name="+category_name+" "+" does not exists!!");
 		throw new CategoryNotFoundException("Category_Name:" + category_name);
 	   }
 	}
