@@ -12,7 +12,12 @@ import org.springframework.stereotype.Service;
 import com.cg.oas.entity.UserEntity;
 import com.cg.oas.exception.UserNotFoundException;
 import com.cg.oas.exception.RecordNotFoundException;
+import com.cg.oas.repo.AdvertiseRepo;
 import com.cg.oas.repo.UserRepo;
+import com.cg.oas.entity.AdvertiseEntity;
+import com.cg.oas.dto.Advertise;
+import com.cg.oas.util.AdvertiseUtil;
+import com.cg.oas.util.UserUtil;
 import com.cg.oas.dto.User;
 
 /*
@@ -26,6 +31,7 @@ public class UserServiceImpl implements UserService
 	 */
 	@Autowired 
 	private UserRepo userRepo;
+	private AdvertiseRepo advertiseRepo;
 	private static Logger logger = LogManager.getLogger(UserServiceImpl.class.getName());
 	
 	/*
@@ -152,6 +158,38 @@ public class UserServiceImpl implements UserService
 	
 	   }
 	}
+	@Override
+	public Advertise createNewAdvertise(Advertise advertise) { //Method to post new advertise
+		Optional<UserEntity> userOptional = Optional.ofNullable(userRepo.findById(advertise.getUser().getUser_id()));
+		if(userOptional.isPresent()) {
+			UserEntity userEntity = userOptional.get();
+			AdvertiseEntity advertiseEntity = 
+			advertiseRepo.save(UserUtil.convertAdvertiseIntoAdvertiseEntity(advertise, userEntity));
+			return UserUtil.convertAdvertiseEntityIntoAdvertise(advertiseEntity);
+		}
+		return null;
+	}
+	@Override
+	public List<Advertise> getAllAdvertises() { //Method to get all posted advertises
+		List<AdvertiseEntity> advertiseEntityList = advertiseRepo.findAll();
+		List<Advertise> advertise = new ArrayList<Advertise>();
+		for(AdvertiseEntity advertiseEntity: advertiseEntityList) {
+			//double user = new User(advertiseEntity.getUser().getUserId(), advertiseEntity.getUser().getName());
+			advertise.add(new Advertise(advertiseEntity.getAd_id(), advertiseEntity.getDescription(), advertiseEntity.getTitle(), 0));
+		}
+		return advertise;
+	}
+	@Override
+	public List<User> getAllUsers() {		//Method to get all users who posted the advertises
+		List<UserEntity> userEntityList = userRepo.findAll();
+		List<User> user = new ArrayList<User>();
+		for(UserEntity userEntity: userEntityList) {
+			user.add(new User(userEntity.getUser_id(), userEntity.getName(), null, 0, null));
+		}
+		return user;
+		
+	}
+
 	          
 }
 	

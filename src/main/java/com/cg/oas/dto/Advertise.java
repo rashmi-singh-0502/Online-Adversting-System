@@ -5,6 +5,8 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
+import com.cg.oas.dto.User;
+
 import io.swagger.annotations.ApiModelProperty;
 
 public class Advertise
@@ -19,11 +21,27 @@ public class Advertise
 	private String title;
 	
 	
+	public User getUser() {
+		return user;
+	}
+	public void setUser(User user) {
+		this.user = user;
+	}
 	@NotBlank
 	@NotNull
 	@ApiModelProperty(value="Advertise Description")
 	private String description;
 	
+	public Advertise(@Min(1) Long ad_id, @NotBlank @NotNull String title, @NotBlank @NotNull String description,
+			@Min(100) @Max(1000000) double price, Category category, User user) {
+		super();
+		this.ad_id = ad_id;
+		this.title = title;
+		this.description = description;
+		this.price = price;
+		this.category = category;
+		this.user = user;
+	}
 	@Min(value=100)
 	@Max(value=1000000)
 	@ApiModelProperty(value="Advertise Price")
@@ -31,6 +49,8 @@ public class Advertise
 	
 	@ApiModelProperty(value="Advertise category")
 	private Category category;
+	
+	private User user;
 	
 	public Advertise(Long ad_id, String title, String description, double price) {
 		super();

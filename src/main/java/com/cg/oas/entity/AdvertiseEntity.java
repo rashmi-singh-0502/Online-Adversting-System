@@ -11,6 +11,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.cg.oas.entity.UserEntity;
+
 
 @Entity
 @Table(name="advertise")
@@ -34,6 +36,18 @@ public class AdvertiseEntity {
 	@JoinColumn(name="category_id")
 	private CategoryEntity category;
 	
+	private UserEntity user;
+	
+	public AdvertiseEntity(Long ad_id, String title, String description, double price, CategoryEntity category,
+			com.cg.oas.entity.UserEntity user) {
+		super();
+		this.ad_id = ad_id;
+		this.title = title;
+		this.description = description;
+		this.price = price;
+		this.category = category;
+		this.user = user;
+	}
 	public AdvertiseEntity(Long ad_id,String title,String description, double price,CategoryEntity category) {
 		this.ad_id = ad_id;
 		this.title = title;
@@ -57,6 +71,12 @@ public class AdvertiseEntity {
 	}
 	public void setAd_id(Long ad_id) {
 		this.ad_id = ad_id;
+	}
+	public UserEntity getUser() {
+		return user;
+	}
+	public void setUser(UserEntity user) {
+		this.user = user;
 	}
 	public String getTitle() {
 		return title;
