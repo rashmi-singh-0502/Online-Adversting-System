@@ -324,4 +324,22 @@ public class AdvertiseControllerTest
 		}
 		logger.info("[END] Test to edit advertise by blank advertise title");
 	}
+	//DELETE ADVERTISE BY ID
+	@Test
+	public void testDeleteById()
+	{
+		logger.info("[START] Test to delete advertise by advertise ID");
+		RestTemplate restTemplate = new RestTemplate();
+		restTemplate.delete("http://localhost:9090/myapp/advertise/advertiseid/2");
+		logger.info("[END] Test to delete advertise by advertise ID");
+	}
+	//DELETE ADVERTISE BY TITLE
+	public void testDeleteBytitle()
+	{
+		logger.info("[START] Test to delete advertise by advertise Title");
+		RestTemplate restTemplate = new RestTemplate();
+		restTemplate.delete("http://localhost:9090/myapp/advertise/door");
+		logger.info("[END] Test to delete advertise by advertise Title");
+	}
+	
 }
