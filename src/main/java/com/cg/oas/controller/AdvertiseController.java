@@ -104,11 +104,11 @@ public class AdvertiseController
 	}
 	
 	//CONTROLLER TO DELETE ADVERTISE BY ID
-/*	@ApiOperation(value="Returns deleted advertise")
+	@ApiOperation(value="Returns deleted advertise")
 	@ApiResponses(value= {
 			@ApiResponse(code=201, message=" advertise delete by Id"),
 			@ApiResponse(code=404, message="No such advertise found")
-	})*/
+	})
 	
 	@DeleteMapping(value="/advertise/advertiseid/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
 	public String deleteAdvertiseById(@PathVariable("id") Long ad_id) throws AdvertiseNotFoundException
@@ -116,11 +116,11 @@ public class AdvertiseController
 		return advertiseService.deleteById(ad_id);
 	}
 	//CONTROLLER TO DELETE ADVERTISE BY Title
-	/*@ApiOperation(value="Returns deleted advertise")
-	*@ApiResponses(value= {
-	*		@ApiResponse(code=201, message=" advertise delete by Id"),
-	*		@ApiResponse(code=404, message="No such advertise found")
-	})*/
+	@ApiOperation(value="Returns deleted advertise")
+	@ApiResponses(value= {
+			@ApiResponse(code=201, message=" advertise delete by Id"),
+		@ApiResponse(code=404, message="No such advertise found")
+	})
 	@DeleteMapping(value="/advertise/{title}", produces=MediaType.APPLICATION_JSON_VALUE)
 	public String deleteAdvertiseByTitle(@PathVariable("title") String title) 
 			throws 	AdvertiseNotFoundException {
